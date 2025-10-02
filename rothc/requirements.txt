@@ -1,0 +1,8 @@
+ggplot2
+dplyr
+readr
+tidyr
+lubridate
+RColorBrewer
+SoilR
+parallel
