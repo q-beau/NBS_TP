@@ -115,7 +115,7 @@ import sys, os, glob
 print(f"🐍 Using Python: {sys.executable}")
 print(f"🐍 Python version: {sys.version.split()[0]}")
 
-if 'NBS_TP' not in sys.executable:
+if 'NbS_TP' not in sys.executable:
     print("\n⚠️ WARNING: You may not be in the correct conda environment!")
     print("💡 Please close Spyder and follow these steps:")
     print("   1. Open Anaconda Prompt")
