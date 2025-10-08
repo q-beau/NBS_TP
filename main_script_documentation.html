@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Script Documentation &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instructions" href="instructions.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Main Script Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/main_script_documentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="main-script-documentation">
+<h1>Main Script Documentation<a class="headerlink" href="#main-script-documentation" title="Link to this heading"></a></h1>
+<p>This exercise simulates soil organic carbon (SOC) stock changes over cropland in the future using
+the RothC model (Jenkison et al., 2014). The model requires climate data (precipitation,
+temperature, evapotranspiration), carbon (C) inputs from biomass, farmyard manure, and
+soil cover information. Model simulations are impacted by global warming scenario, crop rotation
+and management choices such as the percentage of straw returned to the soil at harvest. For this
+exercise, three levels of scenario were selected: three warming scenarios, three rotation schemes
+and a range of percentage of straw return to the soil. This leads to 27 possible climate-rotation-straw
+combinations.</p>
+<p>The main script <code class="docutils literal notranslate"><span class="pre">main.py</span></code> is divided into three cells. Each cell is designed to be run sequentially.</p>
+<section id="cell-1-environment-setup-and-package-verification">
+<h2>CELL 1: Environment Setup and Package Verification<a class="headerlink" href="#cell-1-environment-setup-and-package-verification" title="Link to this heading"></a></h2>
+</section>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading"></a></h2>
+<p>This cell verifies that the correct conda environment (NBS_TP) is active and prepares
+the workspace by:</p>
+<ol class="arabic simple">
+<li><p>Checking Python environment and version</p></li>
+<li><p>Setting up directory paths (data, results, functions)</p></li>
+<li><p>Verifying required packages are installed</p></li>
+<li><p>Cleaning previous results from earlier runs</p></li>
+</ol>
+</section>
+<section id="expected-behavior">
+<h2>Expected Behavior<a class="headerlink" href="#expected-behavior" title="Link to this heading"></a></h2>
+<p>The script will display:</p>
+<ul class="simple">
+<li><p>✅ Success messages if everything is configured correctly</p></li>
+<li><p>⚠️ Warnings if packages are missing or directories don’t exist</p></li>
+<li><p>❌ Errors that stop execution if the wrong environment is active</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>If you see a warning about the wrong conda environment:</p>
+<ol class="arabic simple">
+<li><p>Close Spyder completely</p></li>
+<li><p>Open Anaconda Prompt</p></li>
+<li><p>Run: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">C:\Cours_NbS_TP\env_setup</span></code></p></li>
+<li><p>Run: <code class="docutils literal notranslate"><span class="pre">spyder</span></code></p></li>
+<li><p>Reopen this script</p></li>
+</ol>
+</section>
+<section id="directory-verification">
+<h2>Directory Verification<a class="headerlink" href="#directory-verification" title="Link to this heading"></a></h2>
+<p>The script checks for the existence of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code> folder: Contains input files and climate data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">results/</span></code> folder: Stores RothC model outputs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functions/</span></code> folder: Contains CreateRothCDataIn function</p></li>
+</ul>
+<p>If any folders are missing, the script will raise a FileNotFoundError.</p>
+</section>
+<section id="cleaning-previous-results">
+<h2>Cleaning Previous Results<a class="headerlink" href="#cleaning-previous-results" title="Link to this heading"></a></h2>
+<p>Old result files matching these patterns are removed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data/DataRothCRun_*.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">results/*.csv</span></code></p></li>
+</ul>
+<p>This ensures each run starts with a clean slate.</p>
+</section>
+<section id="cell-2-launch-rothc-simulations">
+<h2>CELL 2: Launch RothC Simulations<a class="headerlink" href="#cell-2-launch-rothc-simulations" title="Link to this heading"></a></h2>
+</section>
+<section id="id1">
+<h2>Purpose<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>This cell generates input files for the RothC model and executes simulations for all
+combinations of warming scenarios, straw return percentages, and crop rotations.</p>
+</section>
+<section id="main-actions">
+<h2>Main Actions<a class="headerlink" href="#main-actions" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Configure scenario variables (warming, straw return, rotations)</p></li>
+<li><p>Generate input data files using CreateRothCDataIn function</p></li>
+<li><p>Execute RothC model in R for each scenario combination</p></li>
+<li><p>Save results to the results folder</p></li>
+</ol>
+</section>
+<section id="scenario-configuration">
+<h2>Scenario Configuration<a class="headerlink" href="#scenario-configuration" title="Link to this heading"></a></h2>
+<section id="climate-scenarios-warming-scenarios">
+<h3>Climate Scenarios (Warming Scenarios)<a class="headerlink" href="#climate-scenarios-warming-scenarios" title="Link to this heading"></a></h3>
+<p>Weather forecasts over the 2025-2100 period are needed for future simulations.
+ALARO climate model generated data over Gembloux for three IPCC representative
+concentration pathways (RCP):</p>
+<ul class="simple">
+<li><p><strong>RCP 2.6</strong>: Low emission scenario (radiative forcing +2.6 W/m² by 2100)</p></li>
+<li><p><strong>RCP 4.5</strong>: Intermediate stabilization scenario (+4.5 W/m² by 2100)</p></li>
+<li><p><strong>RCP 8.5</strong>: High emission scenario (+8.5 W/m² by 2100)</p></li>
+</ul>
+<p>These values represent expected changes in radiative forcing from 1750 to 2100.</p>
+<p>ALARO datasets include:</p>
+<ul class="simple">
+<li><p>Precipitation</p></li>
+<li><p>Temperature</p></li>
+<li><p>Relative humidity (for Penman-Monteith evapotranspiration calculation)</p></li>
+<li><p>Net radiation (for Penman-Monteith evapotranspiration calculation)</p></li>
+</ul>
+<p>These datasets are available as NetCDF files at the <a class="reference external" href="https://ac.ngi.be/catalogue?language=en&amp;openpath=GeoBePartners-open%2FBelgianClimateCentre">Belgian Climate Centre Catalogue</a>.
+The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv files with monthly climate data already available
+in the data folder as, for example, <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-2.6.csv</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-4.5.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-8.5.csv</span></code>.</p>
+</section>
+<section id="straw-return-scenarios">
+<h3>Straw Return Scenarios<a class="headerlink" href="#straw-return-scenarios" title="Link to this heading"></a></h3>
+<p>The amount of straw returned to soil after harvest can be adjusted by modifying
+Bolinder coefficients in <code class="docutils literal notranslate"><span class="pre">data/CoeffBolinder.csv</span></code>. In the original coefficients,
+15% of straw is returned (85% exported), giving a SS coefficient of 0.15 for winter wheat.</p>
+<p>In this exercise, three straw scenarios are defined:</p>
+<ul class="simple">
+<li><p><strong>0%</strong>: All straw exported (SS = 1.0)</p></li>
+<li><p><strong>50%</strong>: Half straw returned (SS = 0.5)</p></li>
+<li><p><strong>100%</strong>: All straw returned (SS = 0.0)</p></li>
+</ul>
+<p>These can be adjusted through <code class="docutils literal notranslate"><span class="pre">step_straw_return</span></code>.</p>
+</section>
+<section id="crop-rotation-scenarios">
+<h3>Crop Rotation Scenarios<a class="headerlink" href="#crop-rotation-scenarios" title="Link to this heading"></a></h3>
+<p>Three crop rotation systems are compared:</p>
+<ol class="arabic simple">
+<li><p><strong>baselinesubset</strong>: Typical 4-year rotation (16-year subset from the Lonzée site)</p></li>
+<li><p><strong>ecofood_ref</strong>: Modified baseline with root crops replaced by cereals (8-year, duplicated)</p></li>
+<li><p><strong>ecofood_vegan</strong>: Vegan rotation without root crops (8-year, duplicated)</p></li>
+</ol>
+<p>Crop calendars for each rotation are provided as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">crop_calendar_baselinesubset.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crop_calendar_ecofood_ref.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crop_calendar_ecofood_vegan.csv</span></code></p></li>
+</ul>
+<p>These CSV files contain start and end dates for each crop, which are used by
+CreateRothCDataIn to calculate:</p>
+<ol class="arabic simple">
+<li><p><strong>Soil cover factor</strong>: Duration of vegetation cover</p></li>
+<li><p><strong>Carbon inputs</strong>: Amount of C returned to soil at harvest</p></li>
+</ol>
+<p>CreateRothCDataIn creates a yield table from real biomass measurements
+from the Lonzée site (BE-Lon_vegetation data.xlsx), which is further combined with Bolinder coefficients (CoeffBolinder.csv)
+to obtain the estimated amount of C returned to the soil at harvest. In RothC, half of the C inputs are set for the harvest month;
+the rest is equally distributed over the three months previous to harvest.</p>
+<p>Overall, this function generates the RothC input file by:</p>
+<ol class="arabic simple">
+<li><p>Loading climate data for the specified warming scenario</p></li>
+<li><p>Loading crop calendar for the specified rotation</p></li>
+<li><p>Adjusting Bolinder coefficients based on straw return percentage</p></li>
+<li><p>Calculating C inputs from biomass measurements (<code class="docutils literal notranslate"><span class="pre">BE-Lon_vegetation</span> <span class="pre">data.xlsx</span></code>)</p></li>
+<li><p>Combining all inputs into a RothC-compatible CSV file</p></li>
+</ol>
+<p>CreateRothCDataIn operates for each climate-rotation-straw combination in the loop:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warming_scenarios</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">straw_scenarios</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rotation_scenarios</span><span class="p">)):</span>
+</pre></div>
+</div>
+<p>Each data file serves as input to the RothC model in R.</p>
+</section>
+</section>
+<section id="r-script-execution">
+<h2>R Script Execution<a class="headerlink" href="#r-script-execution" title="Link to this heading"></a></h2>
+<p>The RothC model is implemented in R (<code class="docutils literal notranslate"><span class="pre">rothc/rothc_MC.R</span></code>). For each scenario
+combination, this script:</p>
+<ol class="arabic simple">
+<li><p>Reads the input CSV file (<code class="docutils literal notranslate"><span class="pre">data/DataRothCRun.csv</span></code>)</p></li>
+<li><p>Runs Monte Carlo simulations to assess model uncertainty</p></li>
+<li><p>Saves results as <code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_{climate}_{rotation}_{straw}.csv</span></code></p></li>
+</ol>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
+<p><strong>Important</strong>: Set <code class="docutils literal notranslate"><span class="pre">Rpath</span></code> to your R installation directory before running.</p>
+<p>Example paths:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rpath</span> <span class="o">=</span> <span class="sa">fr</span><span class="s2">&quot;C:\Program Files\R\R-4.4.2\bin\x64&quot;</span>  <span class="c1"># Standard installation</span>
+<span class="n">Rpath</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;C:\Users\username\AppData\Local\Programs\R\R-43~1.2\bin\x64&#39;</span>  <span class="c1"># User installation</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="expected-output">
+<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading"></a></h2>
+<p>After execution, the results folder will contain 27 CSV files (3 warming × 3 rotation
+× 3 straw scenarios), each named:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SOC_paramMC_summary_</span><span class="p">{</span><span class="n">warming</span><span class="p">}</span><span class="n">_</span><span class="p">{</span><span class="n">rotation</span><span class="p">}</span><span class="n">_</span><span class="p">{</span><span class="n">straw</span><span class="p">}</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+<p>Each file contains monthly SOC predictions with uncertainty estimates.</p>
+</section>
+<section id="id2">
+<h2>Troubleshooting<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>If the R script fails to execute:</p>
+<ol class="arabic simple">
+<li><p>Verify R is installed and Rpath is correct</p></li>
+<li><p>Check that <code class="docutils literal notranslate"><span class="pre">rothc/rothc_MC.R</span></code> exists</p></li>
+<li><p>Review error messages in STDERR output</p></li>
+</ol>
+</section>
+<section id="cell-3-visualize-rothc-results">
+<h2>CELL 3: Visualize RothC Results<a class="headerlink" href="#cell-3-visualize-rothc-results" title="Link to this heading"></a></h2>
+</section>
+<section id="id3">
+<h2>Purpose<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>This cell loads RothC simulation results and creates publication-quality visualizations
+showing SOC stock evolution over time with uncertainty bands.</p>
+</section>
+<section id="visualization-features">
+<h2>Visualization Features<a class="headerlink" href="#visualization-features" title="Link to this heading"></a></h2>
+<p>The plotting system uses a three-dimensional visual encoding:</p>
+<ol class="arabic simple">
+<li><p><strong>Color</strong>: Represents warming scenarios (WS)</p>
+<ul class="simple">
+<li><p>RCP 2.6: Blue (#a1afde)</p></li>
+<li><p>RCP 4.5: Orange (#fbc464)</p></li>
+<li><p>RCP 8.5: Red (#954130)</p></li>
+</ul>
+</li>
+<li><p><strong>Line style</strong>: Represents crop rotations (ROT)</p>
+<ul class="simple">
+<li><p>ecofood_ref: Dotted line (‘:’)</p></li>
+<li><p>ecofood_vegan: Solid line (‘-‘)</p></li>
+<li><p>baselinesubset: Dash-dot line (‘-.’)</p></li>
+</ul>
+</li>
+<li><p><strong>Hatch pattern</strong>: Represents straw return scenarios (SR)</p>
+<ul class="simple">
+<li><p>0%: No hatch (light gray fill)</p></li>
+<li><p>50%: Horizontal lines (’—‘)</p></li>
+<li><p>100%: Plus signs (‘+++’)</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="result-file-selection">
+<h2>Result File Selection<a class="headerlink" href="#result-file-selection" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SelectCrit</span></code> variable controls which CSV files are loaded and plotted:</p>
+<section id="options">
+<h3>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'All'</span></code>: Load all 27 result files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'WS'</span></code>: Select specific warming scenario (requires <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'ST'</span></code>: Select specific straw return (requires <code class="docutils literal notranslate"><span class="pre">SelectST</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ST'</span></code>: Select warming + straw combination</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ROT'</span></code>: Select warming + rotation combination</p></li>
+</ul>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<p>To visualize all straw return scenarios for RCP 2.6 with ecofood_ref rotation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SelectCrit</span> <span class="o">=</span> <span class="s1">&#39;WS+ROT&#39;</span>
+<span class="n">SelectWS</span> <span class="o">=</span> <span class="s1">&#39;2.6&#39;</span>
+<span class="n">SelectROT</span> <span class="o">=</span> <span class="s1">&#39;ecofood_ref&#39;</span>
+</pre></div>
+</div>
+<p>This will load three files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_0.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_50.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_100.csv</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="result-file-structure">
+<h2>Result File Structure<a class="headerlink" href="#result-file-structure" title="Link to this heading"></a></h2>
+<p>Each RothC output CSV contains:</p>
+<section id="columns">
+<h3>Columns<a class="headerlink" href="#columns" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Month</strong>: Simulation month (0 to total simulation length)</p></li>
+<li><p><strong>SOC_mean</strong>: Mean SOC stock (t/ha)</p></li>
+<li><p><strong>SOC_sd</strong>: Standard deviation of SOC stock (t/ha)</p></li>
+<li><p><strong>Delta_SOC_mean</strong>: Change in SOC from initial value (t/ha)</p></li>
+<li><p><strong>Delta_SOC_sd</strong>: Standard deviation of SOC change (t/ha)</p></li>
+</ul>
+<p>The uncertainty estimates come from Monte Carlo simulations with RothC parameter
+uncertainty propagation.</p>
+</section>
+</section>
+<section id="plot-components">
+<h2>Plot Components<a class="headerlink" href="#plot-components" title="Link to this heading"></a></h2>
+<section id="main-plot">
+<h3>Main Plot<a class="headerlink" href="#main-plot" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>X-axis</strong>: Month since initial date</p></li>
+<li><p><strong>Y-axis</strong>: SOC stock (t/ha)</p></li>
+<li><p><strong>Line plots</strong>: Mean SOC evolution (<code class="docutils literal notranslate"><span class="pre">ax.plot</span></code>)</p></li>
+<li><p><strong>Shaded bands</strong>: ±1 standard deviation uncertainty (<code class="docutils literal notranslate"><span class="pre">ax.fill_between</span></code>)</p></li>
+</ul>
+<p>The shaded uncertainty bands are transparent with hatching patterns that indicate
+the straw return scenario. The edge color of the hatch matches the line color
+(warming scenario).</p>
+</section>
+<section id="legend">
+<h3>Legend<a class="headerlink" href="#legend" title="Link to this heading"></a></h3>
+<p>The legend displays all visual encoding elements present in the selected data:</p>
+<ul class="simple">
+<li><p>Color patches for each warming scenario</p></li>
+<li><p>Line style examples for each rotation</p></li>
+<li><p>Hatch patterns for each straw return level</p></li>
+</ul>
+<p>Only combinations actually present in the data are shown in the legend.</p>
+</section>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
+<p>The final figure is saved as a PNG file in the results folder with a filename
+constructed from all legend elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">/</span><span class="n">WS</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">ecofood_ref</span><span class="p">,</span> <span class="n">SR</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SR</span> <span class="mi">50</span><span class="p">,</span> <span class="n">SR</span> <span class="mf">100.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>The figure resolution is set to 1200 DPI for publication quality.</p>
+</section>
+<section id="interactive-visualization">
+<h2>Interactive Visualization<a class="headerlink" href="#interactive-visualization" title="Link to this heading"></a></h2>
+<p>The magic command <code class="docutils literal notranslate"><span class="pre">%matplotlib</span> <span class="pre">qt</span></code> enables interactive plotting in a separate
+window, allowing zoom, pan, and exploration of the results.</p>
+</section>
+<section id="example-result">
+<h2>Example Result<a class="headerlink" href="#example-result" title="Link to this heading"></a></h2>
+<p>A typical plot shows:</p>
+<ul class="simple">
+<li><p>Multiple SOC trajectories over 75 years (2025-2100)</p></li>
+<li><p>Uncertainty bands showing Monte Carlo parameter uncertainty</p></li>
+<li><p>Clear visual distinction between scenarios using color/line/hatch encoding</p></li>
+<li><p>Grid lines for easier value reading</p></li>
+<li><p>Comprehensive legend explaining all visual elements</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>Troubleshooting<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>If no plots appear:</p>
+<ol class="arabic simple">
+<li><p>Check that result CSV files exist in the results folder</p></li>
+<li><p>Verify SelectCrit matches available files</p></li>
+<li><p>Ensure matplotlib backend is properly configured</p></li>
+<li><p>Check console for error messages during file loading</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="instructions.html" class="btn btn-neutral float-right" title="Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

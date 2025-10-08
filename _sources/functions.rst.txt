@@ -1,0 +1,141 @@
+functions package
+=================
+
+Submodules
+----------
+
+functions.BuildClimateSequence module
+-------------------------------------
+
+.. automodule:: functions.BuildClimateSequence
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CalculatePETPM module
+-------------------------------
+
+.. automodule:: functions.CalculatePETPM
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CheckRunningInVenv module
+-----------------------------------
+
+.. automodule:: functions.CheckRunningInVenv
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CreateCropCalendar module
+-----------------------------------
+
+.. automodule:: functions.CreateCropCalendar
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CreateCropYieldTable module
+-------------------------------------
+
+.. automodule:: functions.CreateCropYieldTable
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CreateFymSequence module
+----------------------------------
+
+.. automodule:: functions.CreateFymSequence
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CreateRothCDataIn module
+----------------------------------
+
+.. automodule:: functions.CreateRothCDataIn
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.CropCalendar2CropSequence module
+------------------------------------------
+
+.. automodule:: functions.CropCalendar2CropSequence
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.DuplicateCropCalendar module
+--------------------------------------
+
+.. automodule:: functions.DuplicateCropCalendar
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.ExtractMontlhyDataALARO module
+----------------------------------------
+
+.. automodule:: functions.ExtractMontlhyDataALARO
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.GetExpectedLabelsForLegend module
+-------------------------------------------
+
+.. automodule:: functions.GetExpectedLabelsForLegend
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.GetPlotStyle module
+-----------------------------
+
+.. automodule:: functions.GetPlotStyle
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.SetupLocalVenv module
+-------------------------------
+
+.. automodule:: functions.SetupLocalVenv
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.SetupPackages module
+------------------------------
+
+.. automodule:: functions.SetupPackages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.SetupPackages\_venv module
+------------------------------------
+
+.. automodule:: functions.SetupPackages_venv
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+functions.TransformAGBRothC module
+----------------------------------
+
+.. automodule:: functions.TransformAGBRothC
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: functions
+   :members:
+   :show-inheritance:
+   :undoc-members:

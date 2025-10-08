@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions package &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_script_documentation.html">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">functions package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="functions-package">
+<h1>functions package<a class="headerlink" href="#functions-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-functions.BuildClimateSequence">
+<span id="functions-buildclimatesequence-module"></span><h2>functions.BuildClimateSequence module<a class="headerlink" href="#module-functions.BuildClimateSequence" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 15:08:10 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.BuildClimateSequence.build_climate_sequence_from_calendar">
+<span class="sig-prename descclassname"><span class="pre">functions.BuildClimateSequence.</span></span><span class="sig-name descname"><span class="pre">build_climate_sequence_from_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crop_calendar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">climate_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Temperature_C'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/BuildClimateSequence.html#build_climate_sequence_from_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.BuildClimateSequence.build_climate_sequence_from_calendar" title="Link to this definition"></a></dt>
+<dd><p>Build a climate sequence (temperature or precipitation) from crop calendar dates</p>
+<p>Parameters:
+crop_calendar: DataFrame with crop periods (Start_Date, End_Date)
+climate_df: DataFrame with Year, Month, and climate variable
+variable_name: str, name of the climate variable column</p>
+<p>Returns:
+pandas Series of climate values in monthly resolution</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CalculatePETPM">
+<span id="functions-calculatepetpm-module"></span><h2>functions.CalculatePETPM module<a class="headerlink" href="#module-functions.CalculatePETPM" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 15:34:22 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CalculatePETPM.calculate_pet_penman_monteith">
+<span class="sig-prename descclassname"><span class="pre">functions.CalculatePETPM.</span></span><span class="sig-name descname"><span class="pre">calculate_pet_penman_monteith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temp_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh_percent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shortwave_rad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month_series</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50.56</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CalculatePETPM.html#calculate_pet_penman_monteith"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CalculatePETPM.calculate_pet_penman_monteith" title="Link to this definition"></a></dt>
+<dd><p>Calculate potential evapotranspiration using Penman-Monteith equation with shortwave radiation</p>
+<p>Parameters:
+temp_c: Series/array, monthly temperature in °C
+rh_percent: Series/array, monthly relative humidity in %
+shortwave_rad: Series/array, shortwave radiation in W/m² (or MJ/m²/day if specified)
+month_series: Series/array, month numbers (1-12) for each observation
+latitude: float, latitude in degrees (default: Gembloux ~50.56°N)</p>
+<p>Returns:
+Series of PET in mm/month ==&gt; simplified by <a href="#id1"><span class="problematic" id="id2">*</span></a>30, but ideally should provide the numb of days per months</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CheckRunningInVenv">
+<span id="functions-checkrunninginvenv-module"></span><h2>functions.CheckRunningInVenv module<a class="headerlink" href="#module-functions.CheckRunningInVenv" title="Link to this heading"></a></h2>
+<p>Created on Wed Oct  1 11:08:16 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CheckRunningInVenv.check_running_in_venv">
+<span class="sig-prename descclassname"><span class="pre">functions.CheckRunningInVenv.</span></span><span class="sig-name descname"><span class="pre">check_running_in_venv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CheckRunningInVenv.html#check_running_in_venv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CheckRunningInVenv.check_running_in_venv" title="Link to this definition"></a></dt>
+<dd><p>Check if we’re already running in the local virtual environment</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CreateCropCalendar">
+<span id="functions-createcropcalendar-module"></span><h2>functions.CreateCropCalendar module<a class="headerlink" href="#module-functions.CreateCropCalendar" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 08:49:00 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CreateCropCalendar.create_crop_calendar">
+<span class="sig-prename descclassname"><span class="pre">functions.CreateCropCalendar.</span></span><span class="sig-name descname"><span class="pre">create_crop_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crop_sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CreateCropCalendar.html#create_crop_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CreateCropCalendar.create_crop_calendar" title="Link to this definition"></a></dt>
+<dd><p>Create a crop calendar from a sequence of monthly crop codes</p>
+<p>Parameters:
+crop_sequence: list/array of crop codes (monthly data)
+crop_names: dictionary mapping crop codes to crop names
+start_date: datetime object for the start date (default: March 2004)</p>
+<p>Returns:
+DataFrame with crop periods showing crop code, name, dates, duration, and rotation</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CreateCropYieldTable">
+<span id="functions-createcropyieldtable-module"></span><h2>functions.CreateCropYieldTable module<a class="headerlink" href="#module-functions.CreateCropYieldTable" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 13:24:42 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CreateCropYieldTable.create_yield_table">
+<span class="sig-prename descclassname"><span class="pre">functions.CreateCropYieldTable.</span></span><span class="sig-name descname"><span class="pre">create_yield_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vegetation_data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_names_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bolinder_coeff_table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CreateCropYieldTable.html#create_yield_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CreateCropYieldTable.create_yield_table" title="Link to this definition"></a></dt>
+<dd><p>Create yield table with biomass data and carbon input calculations</p>
+<p>Parameters:
+vegetation_data_path: str, path to the vegetation Excel file
+crop_names_dict: dict, mapping of crop names to numeric codes
+bolinder_coeff_path: str, path to Bolinder coefficients CSV file</p>
+<p>Returns:
+DataFrame with yield data and carbon inputs</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CreateFymSequence">
+<span id="functions-createfymsequence-module"></span><h2>functions.CreateFymSequence module<a class="headerlink" href="#module-functions.CreateFymSequence" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CreateFymSequence.create_fym_sequence">
+<span class="sig-prename descclassname"><span class="pre">functions.CreateFymSequence.</span></span><span class="sig-name descname"><span class="pre">create_fym_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crop_sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fym_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CreateFymSequence.html#create_fym_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CreateFymSequence.create_fym_sequence" title="Link to this definition"></a></dt>
+<dd><p>Create FYM (Farm Yard Manure) sequence based on crop sequence.
+Adds fym_mean after the 2nd, 4th, 6th… occurrences of target_crop blocks.</p>
+<p>Parameters:
+- crop_sequence: list, array, or pandas Series of crop codes
+- fym_mean: value to add for FYM application (e.g., manure amount)
+- target_crop: crop code to track for FYM application (default 7.0)</p>
+<p>Returns:
+- fym_sequence: pandas Series of FYM values (0 or fym_mean)</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.CreateRothCDataIn">
+<span id="functions-createrothcdatain-module"></span><h2>functions.CreateRothCDataIn module<a class="headerlink" href="#module-functions.CreateRothCDataIn" title="Link to this heading"></a></h2>
+<p>Created on Fri Sep 19 09:52:07 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CreateRothCDataIn.CreateRothCDataIn">
+<span class="sig-prename descclassname"><span class="pre">functions.CreateRothCDataIn.</span></span><span class="sig-name descname"><span class="pre">CreateRothCDataIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warming_scenario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">straw_scenario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">management_scenario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setzeroFYM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CreateRothCDataIn.html#CreateRothCDataIn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CreateRothCDataIn.CreateRothCDataIn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-functions.CropCalendar2CropSequence">
+<span id="functions-cropcalendar2cropsequence-module"></span><h2>functions.CropCalendar2CropSequence module<a class="headerlink" href="#module-functions.CropCalendar2CropSequence" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 13:08:30 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.CropCalendar2CropSequence.crop_calendar_to_sequence">
+<span class="sig-prename descclassname"><span class="pre">functions.CropCalendar2CropSequence.</span></span><span class="sig-name descname"><span class="pre">crop_calendar_to_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crop_calendar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/CropCalendar2CropSequence.html#crop_calendar_to_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.CropCalendar2CropSequence.crop_calendar_to_sequence" title="Link to this definition"></a></dt>
+<dd><p>Convert crop calendar back to monthly crop sequence</p>
+<p>Parameters:
+crop_calendar: DataFrame with crop periods</p>
+<p>Returns:
+pandas Series of crop codes in monthly resolution</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.DuplicateCropCalendar">
+<span id="functions-duplicatecropcalendar-module"></span><h2>functions.DuplicateCropCalendar module<a class="headerlink" href="#module-functions.DuplicateCropCalendar" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 10:51:25 2025
+&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.DuplicateCropCalendar.duplicate_crop_calendar">
+<span class="sig-prename descclassname"><span class="pre">functions.DuplicateCropCalendar.</span></span><span class="sig-name descname"><span class="pre">duplicate_crop_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crop_calendar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_duplications</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/DuplicateCropCalendar.html#duplicate_crop_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.DuplicateCropCalendar.duplicate_crop_calendar" title="Link to this definition"></a></dt>
+<dd><p>Duplicate the crop calendar n times with updated dates and rotations
+Fill gaps between rotations by extending cover crop duration</p>
+<p>Parameters:
+crop_calendar: DataFrame with the base crop calendar
+n_duplications: number of times to duplicate (e.g., 2 means original + 2 copies = 3 total)</p>
+<p>Returns:
+DataFrame with duplicated crop calendar without gaps</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.ExtractMontlhyDataALARO">
+<span id="functions-extractmontlhydataalaro-module"></span><h2>functions.ExtractMontlhyDataALARO module<a class="headerlink" href="#module-functions.ExtractMontlhyDataALARO" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 17 14:09:56 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.ExtractMontlhyDataALARO.extract_monthly_data_ALARO">
+<span class="sig-prename descclassname"><span class="pre">functions.ExtractMontlhyDataALARO.</span></span><span class="sig-name descname"><span class="pre">extract_monthly_data_ALARO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/ExtractMontlhyDataALARO.html#extract_monthly_data_ALARO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.ExtractMontlhyDataALARO.extract_monthly_data_ALARO" title="Link to this definition"></a></dt>
+<dd><p>Extract monthly temperature data from NetCDF files for a specific location</p>
+<p>Parameters:
+folder_path: str, path to folder containing NetCDF files
+lat_target: float, target latitude (e.g., 50.5639 for Gembloux)
+lon_target: float, target longitude (e.g., 4.9994 for Gembloux)
+buffer: float, buffer around target coordinates for selection</p>
+<p>Returns:
+DataFrame with year, month, and mean temperature</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.GetExpectedLabelsForLegend">
+<span id="functions-getexpectedlabelsforlegend-module"></span><h2>functions.GetExpectedLabelsForLegend module<a class="headerlink" href="#module-functions.GetExpectedLabelsForLegend" title="Link to this heading"></a></h2>
+<p>Created on Tue Sep 30 14:14:28 2025</p>
+<p>&#64;author: qbeau</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.GetExpectedLabelsForLegend.get_expected_labels">
+<span class="sig-prename descclassname"><span class="pre">functions.GetExpectedLabelsForLegend.</span></span><span class="sig-name descname"><span class="pre">get_expected_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/GetExpectedLabelsForLegend.html#get_expected_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.GetExpectedLabelsForLegend.get_expected_labels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-functions.GetPlotStyle">
+<span id="functions-getplotstyle-module"></span><h2>functions.GetPlotStyle module<a class="headerlink" href="#module-functions.GetPlotStyle" title="Link to this heading"></a></h2>
+<p>Created on Fri Sep 19 11:35:56 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.GetPlotStyle.get_plot_style">
+<span class="sig-prename descclassname"><span class="pre">functions.GetPlotStyle.</span></span><span class="sig-name descname"><span class="pre">get_plot_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/GetPlotStyle.html#get_plot_style"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.GetPlotStyle.get_plot_style" title="Link to this definition"></a></dt>
+<dd><p>Extract color and linestyle based on key components
+key format: ‘8.5_ecofood_ref_50’</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.SetupLocalVenv">
+<span id="functions-setuplocalvenv-module"></span><h2>functions.SetupLocalVenv module<a class="headerlink" href="#module-functions.SetupLocalVenv" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupLocalVenv.setup_local_venv">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupLocalVenv.</span></span><span class="sig-name descname"><span class="pre">setup_local_venv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupLocalVenv.html#setup_local_venv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupLocalVenv.setup_local_venv" title="Link to this definition"></a></dt>
+<dd><p>Create and use a local virtual environment for maximum portability</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.SetupPackages">
+<span id="functions-setuppackages-module"></span><h2>functions.SetupPackages module<a class="headerlink" href="#module-functions.SetupPackages" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages.check_and_install_packages_safe">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages.</span></span><span class="sig-name descname"><span class="pre">check_and_install_packages_safe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'requirements.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">python_exe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages.html#check_and_install_packages_safe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages.check_and_install_packages_safe" title="Link to this definition"></a></dt>
+<dd><p>Simple package installer for educational use
+Just checks and installs missing packages in current environment</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages.get_package_name_from_requirement">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages.</span></span><span class="sig-name descname"><span class="pre">get_package_name_from_requirement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requirement</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages.html#get_package_name_from_requirement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages.get_package_name_from_requirement" title="Link to this definition"></a></dt>
+<dd><p>Extract package name from requirement string (e.g., ‘pandas&gt;=2.0.0’ -&gt; ‘pandas’)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages.install_missing_packages">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages.</span></span><span class="sig-name descname"><span class="pre">install_missing_packages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'requirements.txt'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages.html#install_missing_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages.install_missing_packages" title="Link to this definition"></a></dt>
+<dd><p>Check for missing packages and install them in current environment</p>
+<p>Parameters:
+- script_dir (str): Directory containing requirements file
+- requirements_file (str): Requirements file name or path</p>
+<p>Returns:
+- bool: True if all packages are available, False otherwise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages.is_package_installed">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages.</span></span><span class="sig-name descname"><span class="pre">is_package_installed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages.html#is_package_installed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages.is_package_installed" title="Link to this definition"></a></dt>
+<dd><p>Check if a package is installed and importable</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages.read_requirements">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages.</span></span><span class="sig-name descname"><span class="pre">read_requirements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages.html#read_requirements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages.read_requirements" title="Link to this definition"></a></dt>
+<dd><p>Read and parse requirements.txt file</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.SetupPackages_venv">
+<span id="functions-setuppackages-venv-module"></span><h2>functions.SetupPackages_venv module<a class="headerlink" href="#module-functions.SetupPackages_venv" title="Link to this heading"></a></h2>
+<p>Created on Wed Oct  1 11:12:38 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages_venv.check_installed_packages">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages_venv.</span></span><span class="sig-name descname"><span class="pre">check_installed_packages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'requirements.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">python_exe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages_venv.html#check_installed_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages_venv.check_installed_packages" title="Link to this definition"></a></dt>
+<dd><p>Check if packages from requirements file are properly installed</p>
+<p>Parameters:
+- script_dir (str): Directory where the requirements file is located
+- requirements_file (str): Name of the requirements file (default: ‘requirements.txt’)
+- python_exe (str): Python executable to use for testing (default: sys.executable)</p>
+<p>Returns:
+- bool: True if all packages are working, False otherwise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages_venv.create_requirements_backup">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages_venv.</span></span><span class="sig-name descname"><span class="pre">create_requirements_backup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages_venv.html#create_requirements_backup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages_venv.create_requirements_backup" title="Link to this definition"></a></dt>
+<dd><p>Create a backup of requirements.txt with current installed versions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages_venv.install_packages_from_requirements">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages_venv.</span></span><span class="sig-name descname"><span class="pre">install_packages_from_requirements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">python_exe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages_venv.html#install_packages_from_requirements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages_venv.install_packages_from_requirements" title="Link to this definition"></a></dt>
+<dd><p>Install packages using specified Python executable with robust fallback methods</p>
+<p>Parameters:
+- script_dir (str): Directory containing the requirements file
+- requirements_file (str): Path to requirements file
+- python_exe (str): Python executable to use (default: sys.executable)</p>
+<p>Returns:
+- bool: True if installation successful, False otherwise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.SetupPackages_venv.install_packages_individually">
+<span class="sig-prename descclassname"><span class="pre">functions.SetupPackages_venv.</span></span><span class="sig-name descname"><span class="pre">install_packages_individually</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">python_exe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requirements_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">script_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/SetupPackages_venv.html#install_packages_individually"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.SetupPackages_venv.install_packages_individually" title="Link to this definition"></a></dt>
+<dd><p>Fallback method: install each package individually</p>
+</dd></dl>
+
+</section>
+<section id="module-functions.TransformAGBRothC">
+<span id="functions-transformagbrothc-module"></span><h2>functions.TransformAGBRothC module<a class="headerlink" href="#module-functions.TransformAGBRothC" title="Link to this heading"></a></h2>
+<p>Created on Thu Sep 11 09:53:46 2025</p>
+<p>&#64;author: u230231</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.TransformAGBRothC.transform_agb_rothc">
+<span class="sig-prename descclassname"><span class="pre">functions.TransformAGBRothC.</span></span><span class="sig-name descname"><span class="pre">transform_agb_rothc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions/TransformAGBRothC.html#transform_agb_rothc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.TransformAGBRothC.transform_agb_rothc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-functions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-functions" title="Link to this heading"></a></h2>
+<p>Created on Wed Sep 10 12:37:49 2025</p>
+<p>&#64;author: qbeau</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

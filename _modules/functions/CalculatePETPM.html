@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.CalculatePETPM &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-1-environment-setup-and-package-verification">CELL 1: Environment Setup and Package Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-2-launch-rothc-simulations">CELL 2: Launch RothC Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-3-visualize-rothc-results">CELL 3: Visualize RothC Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.CalculatePETPM</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.CalculatePETPM</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Wed Sep 17 15:34:22 2025</span>
+
+<span class="sd">@author: u230231</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<div class="viewcode-block" id="calculate_pet_penman_monteith">
+<a class="viewcode-back" href="../../functions.html#functions.CalculatePETPM.calculate_pet_penman_monteith">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pet_penman_monteith</span><span class="p">(</span><span class="n">temp_c</span><span class="p">,</span> <span class="n">rh_percent</span><span class="p">,</span> <span class="n">shortwave_rad</span><span class="p">,</span> <span class="n">month_series</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="mf">50.56</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate potential evapotranspiration using Penman-Monteith equation with shortwave radiation</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    temp_c: Series/array, monthly temperature in °C</span>
+<span class="sd">    rh_percent: Series/array, monthly relative humidity in %</span>
+<span class="sd">    shortwave_rad: Series/array, shortwave radiation in W/m² (or MJ/m²/day if specified)</span>
+<span class="sd">    month_series: Series/array, month numbers (1-12) for each observation</span>
+<span class="sd">    latitude: float, latitude in degrees (default: Gembloux ~50.56°N)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    Series of PET in mm/month ==&gt; simplified by *30, but ideally should provide the numb of days per months</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Constants</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.665</span>  <span class="c1"># psychrometric constant (kPa/°C)</span>
+    <span class="n">albedo</span> <span class="o">=</span> <span class="mf">0.23</span>  <span class="c1"># grass reference albedo</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="mf">4.903e-9</span>  <span class="c1"># Stefan-Boltzmann constant (MJ K⁻⁴ m⁻² day⁻¹)</span>
+    
+    <span class="c1"># Convert temperature to Kelvin for some calculations</span>
+    <span class="n">temp_k</span> <span class="o">=</span> <span class="n">temp_c</span> <span class="o">+</span> <span class="mf">273.15</span>
+    
+    <span class="c1"># Saturation vapor pressure (kPa) - Tetens formula</span>
+    <span class="n">e_sat</span> <span class="o">=</span> <span class="mf">0.6108</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mf">17.27</span> <span class="o">*</span> <span class="n">temp_c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">temp_c</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">))</span>
+    
+    <span class="c1"># Actual vapor pressure (kPa)</span>
+    <span class="n">e_actual</span> <span class="o">=</span> <span class="n">e_sat</span> <span class="o">*</span> <span class="p">(</span><span class="n">rh_percent</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+    
+    <span class="c1"># Vapor pressure deficit (kPa)</span>
+    <span class="n">vpd</span> <span class="o">=</span> <span class="n">e_sat</span> <span class="o">-</span> <span class="n">e_actual</span>
+    
+    <span class="c1"># Slope of saturation vapor pressure curve (kPa/°C)</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4098</span> <span class="o">*</span> <span class="n">e_sat</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">temp_c</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Convert shortwave radiation</span>
+    <span class="c1"># If in W/m², convert to MJ/m²/day</span>
+    <span class="k">if</span> <span class="n">shortwave_rad</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>  <span class="c1"># Likely in W/m²</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">shortwave_rad</span> <span class="o">*</span> <span class="mf">0.0864</span>  <span class="c1"># W/m² to MJ/m²/day</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Already in MJ/m²/day</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">shortwave_rad</span>
+    
+    <span class="c1"># Net shortwave radiation (MJ/m²/day)</span>
+    <span class="n">rns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">albedo</span><span class="p">)</span> <span class="o">*</span> <span class="n">rs</span>
+    
+    <span class="c1"># Clear sky radiation (approximation for net longwave calculation)</span>
+    <span class="c1"># Extraterrestrial radiation calculation</span>
+    <span class="k">if</span> <span class="n">month_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">lat_rad</span> <span class="o">=</span> <span class="n">latitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>  <span class="c1"># latitude in radians</span>
+        
+        <span class="c1"># Julian day approximation from month</span>
+        <span class="n">julian_day</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">month_series</span><span class="p">])</span>  <span class="c1"># mid-month approximation</span>
+        
+        <span class="c1"># Solar declination</span>
+        <span class="n">declination</span> <span class="o">=</span> <span class="mf">0.409</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">julian_day</span> <span class="o">/</span> <span class="mi">365</span> <span class="o">-</span> <span class="mf">1.39</span><span class="p">)</span>
+        
+        <span class="c1"># Sunset hour angle</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lat_rad</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">declination</span><span class="p">))</span>
+        
+        <span class="c1"># Extraterrestrial radiation</span>
+        <span class="n">dr</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.033</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">julian_day</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.082</span> <span class="o">*</span> <span class="n">dr</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="n">ws</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat_rad</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">declination</span><span class="p">)</span> <span class="o">+</span> 
+            <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat_rad</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">declination</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Clear sky radiation</span>
+        <span class="n">rso</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.75</span> <span class="o">+</span> <span class="mf">2e-5</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">ra</span>  <span class="c1"># assuming elevation = 0 for simplicity</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rso</span> <span class="o">=</span> <span class="n">rs</span> <span class="o">*</span> <span class="mf">1.35</span>  <span class="c1"># simple approximation</span>
+    
+    <span class="c1"># Net longwave radiation (MJ/m²/day)</span>
+    <span class="n">rnl</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="p">(</span><span class="n">temp_k</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.34</span> <span class="o">-</span> <span class="mf">0.14</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">e_actual</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.35</span> <span class="o">*</span> <span class="n">rs</span> <span class="o">/</span> <span class="n">rso</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">)</span>
+    
+    <span class="c1"># Net radiation (MJ/m²/day)</span>
+    <span class="n">rn</span> <span class="o">=</span> <span class="n">rns</span> <span class="o">-</span> <span class="n">rnl</span>
+    
+    <span class="c1"># Soil heat flux (assumed negligible for monthly data)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># Wind speed (assume 2 m/s if not available)</span>
+    <span class="n">u2</span> <span class="o">=</span> <span class="mf">2.0</span>
+    
+    <span class="c1"># Penman-Monteith equation (mm/day)</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="mf">0.408</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="n">rn</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="mi">900</span> <span class="o">/</span> <span class="p">(</span><span class="n">temp_c</span> <span class="o">+</span> <span class="mi">273</span><span class="p">)</span> <span class="o">*</span> <span class="n">u2</span> <span class="o">*</span> <span class="n">vpd</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">u2</span><span class="p">)</span>
+    
+    <span class="n">pet</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+    
+    <span class="c1"># Ensure non-negative values</span>
+    <span class="n">pet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pet</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">30</span>
+    
+    <span class="k">return</span> <span class="n">pet</span></div>
+
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

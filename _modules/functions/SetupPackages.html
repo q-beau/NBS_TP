@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.SetupPackages &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-1-environment-setup-and-package-verification">CELL 1: Environment Setup and Package Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-2-launch-rothc-simulations">CELL 2: Launch RothC Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-3-visualize-rothc-results">CELL 3: Visualize RothC Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.SetupPackages</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.SetupPackages</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<div class="viewcode-block" id="is_package_installed">
+<a class="viewcode-back" href="../../functions.html#functions.SetupPackages.is_package_installed">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_package_installed</span><span class="p">(</span><span class="n">package_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a package is installed and importable</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ModuleNotFoundError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="get_package_name_from_requirement">
+<a class="viewcode-back" href="../../functions.html#functions.SetupPackages.get_package_name_from_requirement">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_package_name_from_requirement</span><span class="p">(</span><span class="n">requirement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract package name from requirement string (e.g., &#39;pandas&gt;=2.0.0&#39; -&gt; &#39;pandas&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">requirement</span> <span class="o">=</span> <span class="n">requirement</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">requirement</span> <span class="ow">or</span> <span class="n">requirement</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="c1"># Remove version specifiers</span>
+    <span class="k">for</span> <span class="n">separator</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;==&#39;</span><span class="p">,</span> <span class="s1">&#39;~=&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;!=&#39;</span><span class="p">,</span> <span class="s1">&#39;[&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">separator</span> <span class="ow">in</span> <span class="n">requirement</span><span class="p">:</span>
+            <span class="n">requirement</span> <span class="o">=</span> <span class="n">requirement</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">separator</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">break</span>
+    
+    <span class="k">return</span> <span class="n">requirement</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="read_requirements">
+<a class="viewcode-back" href="../../functions.html#functions.SetupPackages.read_requirements">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_requirements</span><span class="p">(</span><span class="n">requirements_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read and parse requirements.txt file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">requirements_file</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Requirements file not found: </span><span class="si">{</span><span class="n">requirements_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">requirements_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        
+        <span class="n">requirements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="n">requirements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">requirements</span>
+        
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error reading requirements file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="install_missing_packages">
+<a class="viewcode-back" href="../../functions.html#functions.SetupPackages.install_missing_packages">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">install_missing_packages</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="n">requirements_file</span><span class="o">=</span><span class="s1">&#39;requirements.txt&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check for missing packages and install them in current environment</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    - script_dir (str): Directory containing requirements file</span>
+<span class="sd">    - requirements_file (str): Requirements file name or path</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    - bool: True if all packages are available, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Handle both filename and full path</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">requirements_file</span><span class="p">):</span>
+        <span class="n">req_path</span> <span class="o">=</span> <span class="n">requirements_file</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">req_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="n">requirements_file</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📋 Checking packages from: </span><span class="si">{</span><span class="n">req_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🐍 Using Python: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Read requirements</span>
+    <span class="n">requirements</span> <span class="o">=</span> <span class="n">read_requirements</span><span class="p">(</span><span class="n">req_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">requirements</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ℹ️ No requirements found&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    
+    <span class="c1"># Check which packages are missing</span>
+    <span class="n">missing_packages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">installed_packages</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🔍 Checking installed packages...&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">requirement</span> <span class="ow">in</span> <span class="n">requirements</span><span class="p">:</span>
+        <span class="n">package_name</span> <span class="o">=</span> <span class="n">get_package_name_from_requirement</span><span class="p">(</span><span class="n">requirement</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">package_name</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_package_installed</span><span class="p">(</span><span class="n">package_name</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✅ </span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">installed_packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ❌ </span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2"> - Missing&quot;</span><span class="p">)</span>
+                <span class="n">missing_packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">requirement</span><span class="p">)</span>
+    
+    <span class="c1"># Install missing packages</span>
+    <span class="k">if</span> <span class="n">missing_packages</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📦 Installing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_packages</span><span class="p">)</span><span class="si">}</span><span class="s2"> missing packages...&quot;</span><span class="p">)</span>
+        
+        <span class="n">success_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">requirement</span> <span class="ow">in</span> <span class="n">missing_packages</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Installing </span><span class="si">{</span><span class="n">requirement</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">requirement</span><span class="p">,</span> 
+                    <span class="s2">&quot;--upgrade-strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;only-if-needed&quot;</span>
+                <span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ </span><span class="si">{</span><span class="n">requirement</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">success_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ❌ </span><span class="si">{</span><span class="n">requirement</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                    
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ⏰ </span><span class="si">{</span><span class="n">requirement</span><span class="si">}</span><span class="s2">: Installation timeout&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ❌ </span><span class="si">{</span><span class="n">requirement</span><span class="si">}</span><span class="s2">: Error - </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📊 Installation summary: </span><span class="si">{</span><span class="n">success_count</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_packages</span><span class="p">)</span><span class="si">}</span><span class="s2"> packages installed&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Verify installations</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🧪 Verifying installations...&quot;</span><span class="p">)</span>
+        <span class="n">all_good</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">requirement</span> <span class="ow">in</span> <span class="n">missing_packages</span><span class="p">:</span>
+            <span class="n">package_name</span> <span class="o">=</span> <span class="n">get_package_name_from_requirement</span><span class="p">(</span><span class="n">requirement</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">package_name</span> <span class="ow">and</span> <span class="n">is_package_installed</span><span class="p">(</span><span class="n">package_name</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✅ </span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ❌ </span><span class="si">{</span><span class="n">package_name</span><span class="si">}</span><span class="s2">: Still missing&quot;</span><span class="p">)</span>
+                <span class="n">all_good</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="k">return</span> <span class="n">all_good</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🎉 All required packages are already installed!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<span class="c1"># Main function for your script</span>
+<div class="viewcode-block" id="check_and_install_packages_safe">
+<a class="viewcode-back" href="../../functions.html#functions.SetupPackages.check_and_install_packages_safe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_and_install_packages_safe</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="n">requirements_file</span><span class="o">=</span><span class="s1">&#39;requirements.txt&#39;</span><span class="p">,</span> <span class="n">python_exe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple package installer for educational use</span>
+<span class="sd">    Just checks and installs missing packages in current environment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">install_missing_packages</span><span class="p">(</span><span class="n">script_dir</span><span class="p">,</span> <span class="n">requirements_file</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+.. NBS_TP documentation master file
+
+Nature-Based Solutions for Climate Change Mitigation
+=====================================================
+
+Practical Session: Soil Organic Carbon Modeling with RothC
+-----------------------------------------------------------
+
+Welcome to the practical exercise on soil organic carbon (SOC) dynamics modeling.
+
+**Learning Objectives:**
+
+* Understand how climate scenarios affect SOC evolution
+* Compare different crop rotation systems
+* Analyze the impact of straw return on carbon sequestration
+* Visualize long-term SOC trends with uncertainty quantification
+
+**Exercise Structure:**
+
+The exercise is organized in three main parts:
+
+1. **Getting Started**: Prepare your workspace and your conda environment
+2. **Main Script Documentation**: Explain the structure of the main script
+3. **Instructions**: Explain the research questions to explore during the exercise
+
+Documentation Contents
+======================
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :caption: Main Script Documentation:
+
+   getting_started
+   main_script_documentation
+   instructions
+
+Indices and Navigation
+======================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

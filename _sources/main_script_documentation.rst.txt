@@ -1,0 +1,327 @@
+Main Script Documentation
+==========================
+
+This exercise simulates soil organic carbon (SOC) stock changes over cropland in the future using
+the RothC model (Jenkison et al., 2014). The model requires climate data (precipitation,
+temperature, evapotranspiration), carbon (C) inputs from biomass, farmyard manure, and
+soil cover information. Model simulations are impacted by global warming scenario, crop rotation
+and management choices such as the percentage of straw returned to the soil at harvest. For this
+exercise, three levels of scenario were selected: three warming scenarios, three rotation schemes 
+and a range of percentage of straw return to the soil. This leads to 27 possible climate-rotation-straw 
+combinations.
+
+The main script ``main.py`` is divided into three cells. Each cell is designed to be run sequentially.
+
+
+CELL 1: Environment Setup and Package Verification
+---------------------------------------------------
+
+Purpose
+-------
+This cell verifies that the correct conda environment (NBS_TP) is active and prepares
+the workspace by:
+
+1. Checking Python environment and version
+2. Setting up directory paths (data, results, functions)
+3. Verifying required packages are installed
+4. Cleaning previous results from earlier runs
+
+Expected Behavior
+-----------------
+The script will display:
+
+- ✅ Success messages if everything is configured correctly
+- ⚠️ Warnings if packages are missing or directories don't exist
+- ❌ Errors that stop execution if the wrong environment is active
+
+Troubleshooting
+---------------
+If you see a warning about the wrong conda environment:
+
+1. Close Spyder completely
+2. Open Anaconda Prompt
+3. Run: ``conda activate C:\Cours_NbS_TP\env_setup``
+4. Run: ``spyder``
+5. Reopen this script
+
+
+Directory Verification
+----------------------
+The script checks for the existence of:
+
+- ``data/`` folder: Contains input files and climate data
+- ``results/`` folder: Stores RothC model outputs
+- ``functions/`` folder: Contains CreateRothCDataIn function
+
+If any folders are missing, the script will raise a FileNotFoundError.
+
+Cleaning Previous Results
+--------------------------
+Old result files matching these patterns are removed:
+
+- ``data/DataRothCRun_*.csv``
+- ``results/*.csv``
+
+This ensures each run starts with a clean slate.
+
+CELL 2: Launch RothC Simulations
+---------------------------------
+
+Purpose
+-------
+This cell generates input files for the RothC model and executes simulations for all
+combinations of warming scenarios, straw return percentages, and crop rotations.
+
+Main Actions
+------------
+1. Configure scenario variables (warming, straw return, rotations)
+2. Generate input data files using CreateRothCDataIn function
+3. Execute RothC model in R for each scenario combination
+4. Save results to the results folder
+
+Scenario Configuration
+----------------------
+
+Climate Scenarios (Warming Scenarios)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Weather forecasts over the 2025-2100 period are needed for future simulations. 
+ALARO climate model generated data over Gembloux for three IPCC representative
+concentration pathways (RCP):
+
+- **RCP 2.6**: Low emission scenario (radiative forcing +2.6 W/m² by 2100)
+- **RCP 4.5**: Intermediate stabilization scenario (+4.5 W/m² by 2100)
+- **RCP 8.5**: High emission scenario (+8.5 W/m² by 2100)
+
+These values represent expected changes in radiative forcing from 1750 to 2100.
+
+ALARO datasets include:
+
+- Precipitation
+- Temperature
+- Relative humidity (for Penman-Monteith evapotranspiration calculation)
+- Net radiation (for Penman-Monteith evapotranspiration calculation)
+
+These datasets are available as NetCDF files at the `Belgian Climate Centre Catalogue <https://ac.ngi.be/catalogue?language=en&openpath=GeoBePartners-open%2FBelgianClimateCentre>`_.
+The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv files with monthly climate data already available 
+in the data folder as, for example, ``ALARO_P_RCP-2.6.csv``,
+``ALARO_P_RCP-4.5.csv``, and ``ALARO_P_RCP-8.5.csv``.
+
+Straw Return Scenarios
+^^^^^^^^^^^^^^^^^^^^^^
+The amount of straw returned to soil after harvest can be adjusted by modifying
+Bolinder coefficients in ``data/CoeffBolinder.csv``. In the original coefficients,
+15% of straw is returned (85% exported), giving a SS coefficient of 0.15 for winter wheat.
+
+In this exercise, three straw scenarios are defined:
+
+- **0%**: All straw exported (SS = 1.0)
+- **50%**: Half straw returned (SS = 0.5)
+- **100%**: All straw returned (SS = 0.0)
+
+These can be adjusted through ``step_straw_return``.
+
+Crop Rotation Scenarios
+^^^^^^^^^^^^^^^^^^^^^^^^
+Three crop rotation systems are compared:
+
+1. **baselinesubset**: Typical 4-year rotation (16-year subset from the Lonzée site)
+2. **ecofood_ref**: Modified baseline with root crops replaced by cereals (8-year, duplicated)
+3. **ecofood_vegan**: Vegan rotation without root crops (8-year, duplicated)
+
+Crop calendars for each rotation are provided as:
+
+- ``crop_calendar_baselinesubset.csv``
+- ``crop_calendar_ecofood_ref.csv``
+- ``crop_calendar_ecofood_vegan.csv``
+
+These CSV files contain start and end dates for each crop, which are used by
+CreateRothCDataIn to calculate:
+
+1. **Soil cover factor**: Duration of vegetation cover
+2. **Carbon inputs**: Amount of C returned to soil at harvest
+
+CreateRothCDataIn creates a yield table from real biomass measurements 
+from the Lonzée site (BE-Lon_vegetation data.xlsx), which is further combined with Bolinder coefficients (CoeffBolinder.csv) 
+to obtain the estimated amount of C returned to the soil at harvest. In RothC, half of the C inputs are set for the harvest month;
+the rest is equally distributed over the three months previous to harvest.
+
+Overall, this function generates the RothC input file by:
+
+1. Loading climate data for the specified warming scenario
+2. Loading crop calendar for the specified rotation
+3. Adjusting Bolinder coefficients based on straw return percentage
+4. Calculating C inputs from biomass measurements (``BE-Lon_vegetation data.xlsx``)
+5. Combining all inputs into a RothC-compatible CSV file
+
+CreateRothCDataIn operates for each climate-rotation-straw combination in the loop::
+
+    for i in range(len(warming_scenarios)):
+		for j in range(len(straw_scenarios)):
+			for k in range(len(rotation_scenarios)):
+
+Each data file serves as input to the RothC model in R. 
+
+
+R Script Execution
+------------------
+The RothC model is implemented in R (``rothc/rothc_MC.R``). For each scenario
+combination, this script:
+
+1. Reads the input CSV file (``data/DataRothCRun.csv``)
+2. Runs Monte Carlo simulations to assess model uncertainty
+3. Saves results as ``SOC_paramMC_summary_{climate}_{rotation}_{straw}.csv``
+
+Configuration
+^^^^^^^^^^^^^
+**Important**: Set ``Rpath`` to your R installation directory before running.
+
+Example paths::
+
+    Rpath = fr"C:\Program Files\R\R-4.4.2\bin\x64"  # Standard installation
+    Rpath = fr'C:\Users\username\AppData\Local\Programs\R\R-43~1.2\bin\x64'  # User installation
+
+Expected Output
+---------------
+After execution, the results folder will contain 27 CSV files (3 warming × 3 rotation
+× 3 straw scenarios), each named::
+
+    SOC_paramMC_summary_{warming}_{rotation}_{straw}.csv
+
+Each file contains monthly SOC predictions with uncertainty estimates.
+
+Troubleshooting
+---------------
+If the R script fails to execute:
+
+1. Verify R is installed and Rpath is correct
+2. Check that ``rothc/rothc_MC.R`` exists
+3. Review error messages in STDERR output
+
+
+
+CELL 3: Visualize RothC Results
+--------------------------------
+Purpose
+-------
+This cell loads RothC simulation results and creates publication-quality visualizations
+showing SOC stock evolution over time with uncertainty bands.
+
+Visualization Features
+----------------------
+The plotting system uses a three-dimensional visual encoding:
+
+1. **Color**: Represents warming scenarios (WS)
+   
+   - RCP 2.6: Blue (#a1afde)
+   - RCP 4.5: Orange (#fbc464)
+   - RCP 8.5: Red (#954130)
+
+2. **Line style**: Represents crop rotations (ROT)
+   
+   - ecofood_ref: Dotted line (':')
+   - ecofood_vegan: Solid line ('-')
+   - baselinesubset: Dash-dot line ('-.')
+
+3. **Hatch pattern**: Represents straw return scenarios (SR)
+   
+   - 0%: No hatch (light gray fill)
+   - 50%: Horizontal lines ('---')
+   - 100%: Plus signs ('+++')
+
+Result File Selection
+---------------------
+The ``SelectCrit`` variable controls which CSV files are loaded and plotted:
+
+Options
+^^^^^^^
+- ``'All'``: Load all 27 result files
+- ``'WS'``: Select specific warming scenario (requires ``SelectWS``)
+- ``'ST'``: Select specific straw return (requires ``SelectST``)
+- ``'WS+ST'``: Select warming + straw combination
+- ``'WS+ROT'``: Select warming + rotation combination
+
+Example
+^^^^^^^
+To visualize all straw return scenarios for RCP 2.6 with ecofood_ref rotation::
+
+    SelectCrit = 'WS+ROT'
+    SelectWS = '2.6'
+    SelectROT = 'ecofood_ref'
+
+This will load three files:
+
+- ``SOC_paramMC_summary_2.6_ecofood_ref_0.csv``
+- ``SOC_paramMC_summary_2.6_ecofood_ref_50.csv``
+- ``SOC_paramMC_summary_2.6_ecofood_ref_100.csv``
+
+Result File Structure
+---------------------
+Each RothC output CSV contains:
+
+Columns
+^^^^^^^
+- **Month**: Simulation month (0 to total simulation length)
+- **SOC_mean**: Mean SOC stock (t/ha)
+- **SOC_sd**: Standard deviation of SOC stock (t/ha)
+- **Delta_SOC_mean**: Change in SOC from initial value (t/ha)
+- **Delta_SOC_sd**: Standard deviation of SOC change (t/ha)
+
+The uncertainty estimates come from Monte Carlo simulations with RothC parameter
+uncertainty propagation.
+
+Plot Components
+---------------
+
+Main Plot
+^^^^^^^^^
+- **X-axis**: Month since initial date
+- **Y-axis**: SOC stock (t/ha)
+- **Line plots**: Mean SOC evolution (``ax.plot``)
+- **Shaded bands**: ±1 standard deviation uncertainty (``ax.fill_between``)
+
+The shaded uncertainty bands are transparent with hatching patterns that indicate
+the straw return scenario. The edge color of the hatch matches the line color
+(warming scenario).
+
+Legend
+^^^^^^
+The legend displays all visual encoding elements present in the selected data:
+
+- Color patches for each warming scenario
+- Line style examples for each rotation
+- Hatch patterns for each straw return level
+
+Only combinations actually present in the data are shown in the legend.
+
+Output
+------
+The final figure is saved as a PNG file in the results folder with a filename
+constructed from all legend elements::
+
+    results/WS 2.6, ecofood_ref, SR 0, SR 50, SR 100.png
+
+The figure resolution is set to 1200 DPI for publication quality.
+
+Interactive Visualization
+-------------------------
+The magic command ``%matplotlib qt`` enables interactive plotting in a separate
+window, allowing zoom, pan, and exploration of the results.
+
+Example Result
+--------------
+A typical plot shows:
+
+- Multiple SOC trajectories over 75 years (2025-2100)
+- Uncertainty bands showing Monte Carlo parameter uncertainty
+- Clear visual distinction between scenarios using color/line/hatch encoding
+- Grid lines for easier value reading
+- Comprehensive legend explaining all visual elements
+
+Troubleshooting
+---------------
+If no plots appear:
+
+1. Check that result CSV files exist in the results folder
+2. Verify SelectCrit matches available files
+3. Ensure matplotlib backend is properly configured
+4. Check console for error messages during file loading

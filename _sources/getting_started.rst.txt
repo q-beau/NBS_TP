@@ -1,0 +1,128 @@
+Getting Started
+===============
+
+Before beginning this exercise, ensure you have the following installed:
+
+**Required Software**
+
+* **R** (version 4.0 or higher) - Download from https://cran.r-project.org/
+* **RStudio** (optional) - Download from https://posit.co/downloads/
+* **Anaconda** or **Miniconda** - For Python environment management
+
+
+Environment Setup
+-----------------
+
+You first need to select a location for setting the working directory for this exercise. 
+To prevent compatibility issues, you must work from a folder with a path without blanks. 
+This folder will be created in your ``C`` using Anaconda Prompt::
+
+    mkdir C:\Cours_NbS_TP 
+
+Then sets the working directory to this folder::
+
+    cd C:\Cours_NbS_TP
+	
+Install git::
+
+	conda install git -c conda-forge
+
+Ensure git is installed::
+
+	git --version
+
+Clone the repository from GitHub using::
+	
+	git clone --branch main --single-branch https://github.com/q-beau/NBS_TP.git
+	cd NBS_TP
+
+Now create and activate the environment using yml file::
+
+    conda env create --prefix C:\Cours_NbS_TP\env_setup -f environment.yml
+    conda activate C:\Cours_NbS_TP\env_setup
+
+Wait 3-5 minutes for installation to complete.
+   
+For next time - Just run::
+    
+	conda activate C:\Cours_NbS_TP\env_setup
+
+   
+Project Structure
+-----------------
+After cloning the repository, your project folder should look like this::
+
+    NBS_TP/
+    ├── main.py          # Main script to execute
+    ├── data/                     # Input data files
+    │   ├── CoeffBolinder.csv
+    │   ├── crop_calendar_baselinesubset.csv
+    │   ├── crop_calendar_ecofood_ref.csv
+    │   ├── crop_calendar_ecofoodvegan.csv
+    │   ├── BE-Lon_vegetation data.xlsx
+    │   ├── ALARO_P_RCP-2.6.csv
+    │   ├── ALARO_P_RCP-4.5.csv
+    │   └── ALARO_P_RCP-8.5.csv
+    ├── results/                  # Output files (initially empty)
+    ├── functions/                # Helper Python functions
+    │   └── CreateRothCDataIn.py
+    ├── rothc/                    # R scripts for RothC model
+    │   └── rothc_MC.R
+
+**Important Files**
+
+* ``main.py`` - The main script you'll execute in Spyder
+* ``data/CoeffBolinder.csv`` - Carbon allocation coefficients from Bolinder et al. (2007)
+* ``data/crop_calendar_*.csv`` - Crop rotation schedules for different scenarios
+* ``rothc/rothc_MC.R`` - RothC model implementation with Monte Carlo uncertainty
+
+Opening the Project in Spyder
+------------------------------
+
+**Step 1: Launch Spyder from the Correct Environment**
+
+Always launch Spyder from within the activated conda environment::
+
+    conda activate NBS_TP
+    spyder
+
+**Step 2: Open the Main Script**
+
+In Spyder, go to **File → Open** and navigate to ``main.py``.
+
+**Step 3: Set Working Directory**
+
+Spyder should automatically detect the script's directory as the working directory.
+Verify this in the IPython console - it should show your project folder path.
+
+Verifying Your Setup
+--------------------
+
+Before running the main script, verify your setup is correct:
+
+**Check Python Environment**
+
+In Spyder's IPython console, run::
+
+    import sys
+    print(sys.executable)
+
+This should show a path containing ``NBS_TP``.
+
+**Check Data Files**
+
+* Verify that all required CSV files exist in the ``data/`` folder.
+* Verify ``Rpath`` points to the correct R installation directory
+* Check that ``rothc/rothc_MC.R`` exists in your project folder
+
+Next Steps
+----------
+
+Once your environment is set up and verified:
+
+1. Proceed to the **Main Script Documentation** to understand the code structure
+2. Review the **Scientific Background** section to understand RothC modeling
+3. Execute the three cells sequentially in Spyder
+4. Analyze your results using the visualization tools
+
+Ready to begin? Head to the **Main Script Documentation** section!

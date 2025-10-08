@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.CreateCropCalendar &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-1-environment-setup-and-package-verification">CELL 1: Environment Setup and Package Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-2-launch-rothc-simulations">CELL 2: Launch RothC Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-3-visualize-rothc-results">CELL 3: Visualize RothC Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.CreateCropCalendar</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.CreateCropCalendar</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Wed Sep 17 08:49:00 2025</span>
+
+<span class="sd">@author: u230231</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+
+<div class="viewcode-block" id="create_crop_calendar">
+<a class="viewcode-back" href="../../functions.html#functions.CreateCropCalendar.create_crop_calendar">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_crop_calendar</span><span class="p">(</span><span class="n">crop_sequence</span><span class="p">,</span> <span class="n">crop_names</span><span class="p">,</span> <span class="n">start_date</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a crop calendar from a sequence of monthly crop codes</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    crop_sequence: list/array of crop codes (monthly data)</span>
+<span class="sd">    crop_names: dictionary mapping crop codes to crop names</span>
+<span class="sd">    start_date: datetime object for the start date (default: March 2004)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    DataFrame with crop periods showing crop code, name, dates, duration, and rotation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Generate dates for each month in the sequence</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">crop_sequence</span><span class="p">)):</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="p">(</span><span class="n">start_date</span><span class="o">.</span><span class="n">month</span> <span class="o">+</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">12</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_date</span><span class="o">.</span><span class="n">month</span> <span class="o">+</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">12</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="c1"># Group consecutive months with same crop</span>
+    <span class="n">crop_periods</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">crop_sequence</span><span class="p">):</span>
+        <span class="n">current_crop</span> <span class="o">=</span> <span class="n">crop_sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="n">i</span>
+        
+        <span class="c1"># Find end of current crop period</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">crop_sequence</span><span class="p">)</span> <span class="ow">and</span> <span class="n">crop_sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">current_crop</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="n">end_idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+        
+        <span class="n">crop_periods</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Crop&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">current_crop</span><span class="p">),</span>
+            <span class="s1">&#39;Start_Date&#39;</span><span class="p">:</span> <span class="n">dates</span><span class="p">[</span><span class="n">start_idx</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;End_Date&#39;</span><span class="p">:</span> <span class="n">dates</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+            <span class="c1"># &#39;Duration_Months&#39;: end_idx - start_idx + 1,</span>
+            <span class="c1"># &#39;Start_Month_Index&#39;: start_idx,</span>
+            <span class="c1"># &#39;End_Month_Index&#39;: end_idx</span>
+        <span class="p">})</span>
+    
+    <span class="c1"># Create DataFrame</span>
+    <span class="n">crop_calendar</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">crop_periods</span><span class="p">)</span>
+    
+    <span class="c1"># Add Crop_Name column after Crop column</span>
+    <span class="n">crop_names_reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">crop_names</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">crop_calendar</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Crop_Name&#39;</span><span class="p">,</span> <span class="n">crop_calendar</span><span class="p">[</span><span class="s1">&#39;Crop&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">crop_names_reverse</span><span class="p">))</span>
+    
+    <span class="c1"># Define rotation periods based on start dates</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_rotation</span><span class="p">(</span><span class="n">start_date_str</span><span class="p">):</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">start_date_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">year</span> <span class="o">==</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span><span class="o">+</span><span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Rotation 1&#39;</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span><span class="o">+</span><span class="mi">8</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Rotation 2&#39;</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span><span class="o">+</span><span class="mi">12</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Rotation 3&#39;</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span><span class="o">+</span><span class="mi">16</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Rotation 4&#39;</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 2020 onwards until 2024-07</span>
+            <span class="k">return</span> <span class="s1">&#39;Rotation 5&#39;</span>
+    
+    <span class="c1"># Add Rotation column</span>
+    <span class="n">crop_calendar</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_calendar</span><span class="p">[</span><span class="s1">&#39;Start_Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_rotation</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">crop_calendar</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

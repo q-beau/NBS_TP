@@ -1,0 +1,227 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.CreateRothCDataIn &mdash; NBS_TP 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NBS_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Script Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html">Main Script Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-1-environment-setup-and-package-verification">CELL 1: Environment Setup and Package Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-2-launch-rothc-simulations">CELL 2: Launch RothC Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../main_script_documentation.html#cell-3-visualize-rothc-results">CELL 3: Visualize RothC Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../instructions.html">Instructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NBS_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.CreateRothCDataIn</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.CreateRothCDataIn</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Sep 19 09:52:07 2025</span>
+
+<span class="sd">@author: u230231</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<div class="viewcode-block" id="CreateRothCDataIn">
+<a class="viewcode-back" href="../../functions.html#functions.CreateRothCDataIn.CreateRothCDataIn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CreateRothCDataIn</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="n">warming_scenario</span><span class="p">,</span><span class="n">straw_scenario</span><span class="p">,</span><span class="n">management_scenario</span><span class="p">,</span><span class="n">setzeroFYM</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1">#Load climate variables</span>
+    <span class="n">monthly_rn_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ALARO_Rn_RCP-</span><span class="si">{</span><span class="n">warming_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">))</span>
+    <span class="n">monthly_rh_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ALARO_RH_RCP-</span><span class="si">{</span><span class="n">warming_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">))</span>
+    <span class="n">monthly_pr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ALARO_P_RCP-</span><span class="si">{</span><span class="n">warming_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">))</span>
+    <span class="n">monthly_temp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ALARO_T_RCP-</span><span class="si">{</span><span class="n">warming_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">))</span>
+    <span class="c1"># #Load initial data file input</span>
+    <span class="c1"># DataRothC = pd.read_csv(os.path.join(data_path, f&#39;DataRothCRun_{management_scenario}.csv&#39;))</span>
+    
+    <span class="n">crop_names</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Bare soil&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;Cover crop&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> 
+        <span class="s1">&#39;Green dwarf bean&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># Note: your data has &quot;Green dwarf bean&quot; not &quot;Green dwarf beans&quot;</span>
+        <span class="s1">&#39;Maize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;Potato&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;Sugar beet&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s1">&#39;Winter Wheat&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># Note: your data has &quot;Winter Wheat&quot; not &quot;Winter wheat&quot;</span>
+        <span class="s1">&#39;Rapeseed&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;Cameline&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;Faba&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;Pea&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+        <span class="s1">&#39;Oat&#39;</span><span class="p">:</span> <span class="mi">12</span>
+    <span class="p">}</span>
+    
+    <span class="c1">#Create yield table after straw_scenario</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">CreateCropYieldTable</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_yield_table</span>
+    <span class="n">CoeffBolinder</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;CoeffBolinder.csv&#39;</span><span class="p">))</span> <span class="c1">#open the CoeffBolinder table</span>
+    <span class="n">CoeffBolinder</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">CoeffBolinder</span><span class="p">[</span><span class="s1">&#39;Crop&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Winter Wheat&#39;</span><span class="p">,[</span><span class="s1">&#39;SS&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">straw_scenario</span><span class="o">/</span><span class="mi">100</span>
+    <span class="n">yield_table</span> <span class="o">=</span> <span class="n">create_yield_table</span><span class="p">(</span>
+        <span class="n">vegetation_data_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;BE-Lon_vegetation data.xlsx&#39;</span><span class="p">),</span>
+        <span class="n">crop_names_dict</span><span class="o">=</span><span class="n">crop_names</span><span class="p">,</span>
+        <span class="n">bolinder_coeff_table</span><span class="o">=</span><span class="n">CoeffBolinder</span><span class="p">)</span>
+    <span class="c1">#Create yield table</span>
+    <span class="n">cinbol_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">yield_table</span><span class="p">[</span><span class="s2">&quot;Crop code&quot;</span><span class="p">],</span> <span class="n">yield_table</span><span class="p">[</span><span class="s2">&quot;Cin_Bol&quot;</span><span class="p">]))</span>
+    
+    <span class="c1">#Create crop sequence after management scenario</span>
+    <span class="n">crop_calendar</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;crop_calendar_</span><span class="si">{</span><span class="n">management_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">))</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">CropCalendar2CropSequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">crop_calendar_to_sequence</span>
+    <span class="n">crop_sequence</span> <span class="o">=</span> <span class="n">crop_calendar_to_sequence</span><span class="p">(</span><span class="n">crop_calendar</span><span class="p">)</span>
+    
+    <span class="c1">#Create SoilCover sequence after management scenario</span>
+    <span class="n">soilcover_sequence</span> <span class="o">=</span> <span class="n">crop_sequence</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">0.6</span><span class="p">)</span>
+    
+    <span class="c1">#Create AGB sequence after management scenario</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">TransformAGBRothC</span><span class="w"> </span><span class="kn">import</span> <span class="n">transform_agb_rothc</span>
+    <span class="n">AGB_sequence</span> <span class="o">=</span> <span class="n">transform_agb_rothc</span><span class="p">(</span><span class="n">crop_sequence</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cinbol_map</span><span class="p">))</span> <span class="c1">#create modified AGB sequence</span>
+
+    <span class="c1">#Create FYM sequence after management scenario</span>
+    <span class="k">if</span> <span class="n">setzeroFYM</span><span class="p">:</span>
+        <span class="n">FYM_sequence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">AGB_sequence</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;FYM&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">FYM_mean_per_rot</span> <span class="o">=</span> <span class="mf">2.69</span> <span class="c1">#avg t/ha per rotation from baseline scenario</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">CreateFymSequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_fym_sequence</span>
+        <span class="n">FYM_sequence</span> <span class="o">=</span> <span class="n">create_fym_sequence</span><span class="p">(</span><span class="n">crop_sequence</span><span class="p">,</span><span class="n">FYM_mean_per_rot</span><span class="p">)</span>
+    
+    <span class="c1">#Create climate sequence </span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BuildClimateSequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_climate_sequence_from_calendar</span>
+    <span class="n">temperature_sequence</span> <span class="o">=</span> <span class="n">build_climate_sequence_from_calendar</span><span class="p">(</span>
+        <span class="n">crop_calendar</span><span class="o">=</span><span class="n">crop_calendar</span><span class="p">,</span>
+        <span class="n">climate_df</span><span class="o">=</span><span class="n">monthly_temp_df</span><span class="p">,</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;Temperature_C&#39;</span>
+    <span class="p">)</span>
+    <span class="n">temperature_sequence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">temperature_sequence</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+    <span class="n">precipitation_sequence</span> <span class="o">=</span> <span class="n">build_climate_sequence_from_calendar</span><span class="p">(</span>
+        <span class="n">crop_calendar</span><span class="o">=</span><span class="n">crop_calendar</span><span class="p">,</span>
+        <span class="n">climate_df</span><span class="o">=</span><span class="n">monthly_pr_df</span><span class="p">,</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;Precipitation_mm&#39;</span>
+    <span class="p">)</span>
+    <span class="n">precipitation_sequence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">precipitation_sequence</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">)</span>
+
+    <span class="n">humidity_sequence</span> <span class="o">=</span> <span class="n">build_climate_sequence_from_calendar</span><span class="p">(</span>
+        <span class="n">crop_calendar</span><span class="o">=</span><span class="n">crop_calendar</span><span class="p">,</span>
+        <span class="n">climate_df</span><span class="o">=</span><span class="n">monthly_rh_df</span><span class="p">,</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;RelHumidity_%&#39;</span>
+    <span class="p">)</span>
+    <span class="n">humidity_sequence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">humidity_sequence</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;RH&#39;</span><span class="p">)</span>
+
+    <span class="n">radiation_sequence</span> <span class="o">=</span> <span class="n">build_climate_sequence_from_calendar</span><span class="p">(</span>
+        <span class="n">crop_calendar</span><span class="o">=</span><span class="n">crop_calendar</span><span class="p">,</span>
+        <span class="n">climate_df</span><span class="o">=</span><span class="n">monthly_rn_df</span><span class="p">,</span>
+        <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;NetRad_Wm-2&#39;</span>
+    <span class="p">)</span>
+    <span class="n">radiation_sequence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">radiation_sequence</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Rn&#39;</span><span class="p">)</span>
+
+
+    <span class="c1">#Calculate PET from these climate variables</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">CalculatePETPM</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_pet_penman_monteith</span>
+    <span class="n">pet_sequence</span> <span class="o">=</span> <span class="n">calculate_pet_penman_monteith</span><span class="p">(</span>
+        <span class="n">temp_c</span><span class="o">=</span><span class="n">temperature_sequence</span><span class="p">,</span>
+        <span class="n">rh_percent</span><span class="o">=</span><span class="n">humidity_sequence</span><span class="p">,</span>
+        <span class="n">shortwave_rad</span><span class="o">=</span><span class="n">radiation_sequence</span><span class="p">,</span>  <span class="c1"># your shortwave radiation data</span>
+        <span class="n">month_series</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="mf">50.56</span>  <span class="c1"># Gembloux latitude</span>
+    <span class="p">)</span>
+    
+    <span class="n">DataRothC</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">temperature_sequence</span><span class="p">,</span>
+        <span class="s2">&quot;Evap&quot;</span><span class="p">:</span> <span class="n">pet_sequence</span><span class="p">,</span>
+        <span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="n">precipitation_sequence</span><span class="p">,</span>
+        <span class="s2">&quot;FYM&quot;</span><span class="p">:</span> <span class="n">FYM_sequence</span><span class="p">,</span>        
+        <span class="s2">&quot;AGB&quot;</span><span class="p">:</span> <span class="n">AGB_sequence</span><span class="p">,</span>      
+        <span class="s2">&quot;SoilCover&quot;</span><span class="p">:</span> <span class="n">soilcover_sequence</span><span class="p">,</span>
+        <span class="s2">&quot;Crop&quot;</span><span class="p">:</span> <span class="n">crop_sequence</span>
+    <span class="p">})</span>
+    <span class="n">DataRothC</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;DataRothCRun_</span><span class="si">{</span><span class="n">management_scenario</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">warming_scenario</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">straw_scenario</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)))</span>
+   
+    <span class="k">return</span> <span class="n">DataRothC</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Quentin Beauclaire.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
