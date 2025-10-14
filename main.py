@@ -130,6 +130,9 @@ straw_scenarios = list(map(int, config['Scenarios']['straw_scenarios'].split(','
 #Rotation scenario
 rotation_scenarios = config['Scenarios']['rotation_scenarios'].split(',')
 
+#List of available rotations in param.ini : ecofoodref, ecofoodvegan, baselinesubset
+#List of available warming scenarios in param.ini : 8.5,4.5,2.6
+#List of available straw scenarios in param.ini : 0,10,20,... (between 0 and 100) 
 #------------------ Generate input files for RothC --------------------------------------#
 
 from CreateRothCDataIn import CreateRothCDataIn
@@ -391,4 +394,5 @@ max_lower = max_scenario['final_SOC'] - max_scenario['final_SOC_sd']
 max_upper = max_scenario['final_SOC'] + max_scenario['final_SOC_sd']
 
 print(f"Most postive scenario:\n{max_scenario}\n")
+
 
