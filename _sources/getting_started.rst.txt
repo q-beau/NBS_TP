@@ -5,9 +5,8 @@ Before beginning this exercise, ensure you have the following installed:
 
 **Required Software**
 
-* **R** (version 4.0 or higher) - Download from https://cran.r-project.org/
-* **RStudio** (optional) - Download from https://posit.co/downloads/
 * **Anaconda** or **Miniconda** - For Python environment management
+* **Anaconda Prompt** 
 
 
 Environment Setup
@@ -112,7 +111,6 @@ This should show a path containing ``NBS_TP``.
 **Check Data Files**
 
 * Verify that all required CSV files exist in the ``data/`` folder.
-* Verify ``Rpath`` points to the correct R installation directory
 * Check that ``rothc/rothc_MC.R`` exists in your project folder
 
 Next Steps

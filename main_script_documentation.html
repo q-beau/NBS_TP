@@ -96,6 +96,7 @@ the workspace by:</p>
 <li><p>Setting up directory paths (data, results, functions)</p></li>
 <li><p>Verifying required packages are installed</p></li>
 <li><p>Cleaning previous results from earlier runs</p></li>
+<li><p>Installing R directly into <code class="docutils literal notranslate"><span class="pre">rothc/R/</span></code></p></li>
 </ol>
 </section>
 <section id="expected-behavior">
@@ -242,15 +243,6 @@ combination, this script:</p>
 <li><p>Runs Monte Carlo simulations to assess model uncertainty</p></li>
 <li><p>Saves results as <code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_{climate}_{rotation}_{straw}.csv</span></code></p></li>
 </ol>
-<section id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
-<p><strong>Important</strong>: Set <code class="docutils literal notranslate"><span class="pre">Rpath</span></code> to your R installation directory before running.</p>
-<p>Example paths:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rpath</span> <span class="o">=</span> <span class="sa">fr</span><span class="s2">&quot;C:\Program Files\R\R-4.4.2\bin\x64&quot;</span>  <span class="c1"># Standard installation</span>
-<span class="n">Rpath</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;C:\Users\username\AppData\Local\Programs\R\R-43~1.2\bin\x64&#39;</span>  <span class="c1"># User installation</span>
-</pre></div>
-</div>
-</section>
 </section>
 <section id="expected-output">
 <h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading"></a></h2>
