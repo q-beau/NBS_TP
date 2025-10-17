@@ -157,6 +157,7 @@ combinations of warming scenarios, straw return percentages, and crop rotations.
 </section>
 <section id="scenario-configuration">
 <h2>Scenario Configuration<a class="headerlink" href="#scenario-configuration" title="Link to this heading"></a></h2>
+<p>The different scenarios are described below. Scenario configuration can be set in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>.</p>
 <section id="climate-scenarios-warming-scenarios">
 <h3>Climate Scenarios (Warming Scenarios)<a class="headerlink" href="#climate-scenarios-warming-scenarios" title="Link to this heading"></a></h3>
 <p>Weather forecasts over the 2025-2100 period are needed for future simulations.
@@ -179,6 +180,7 @@ concentration pathways (RCP):</p>
 The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv files with monthly climate data already available
 in the data folder as, for example, <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-2.6.csv</span></code>,
 <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-4.5.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-8.5.csv</span></code>.</p>
+<p>The warming scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">warming_scenarios</span>&#160; <span class="pre">``</span> <span class="pre">in</span> <span class="pre">``param.ini</span></code>. The script can handle multiple warming scenarios.</p>
 </section>
 <section id="straw-return-scenarios">
 <h3>Straw Return Scenarios<a class="headerlink" href="#straw-return-scenarios" title="Link to this heading"></a></h3>
@@ -191,7 +193,7 @@ Bolinder coefficients in <code class="docutils literal notranslate"><span class=
 <li><p><strong>50%</strong>: Half straw returned (SS = 0.5)</p></li>
 <li><p><strong>100%</strong>: All straw returned (SS = 0.0)</p></li>
 </ul>
-<p>These can be adjusted through <code class="docutils literal notranslate"><span class="pre">step_straw_return</span></code>.</p>
+<p>These can be adjusted through <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>. The script can handle multiple straw scenarios.</p>
 </section>
 <section id="crop-rotation-scenarios">
 <h3>Crop Rotation Scenarios<a class="headerlink" href="#crop-rotation-scenarios" title="Link to this heading"></a></h3>
@@ -231,7 +233,8 @@ the rest is equally distributed over the three months previous to harvest.</p>
                     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rotation_scenarios</span><span class="p">)):</span>
 </pre></div>
 </div>
-<p>Each data file serves as input to the RothC model in R.</p>
+<p>Each data file serves as input to the RothC model in R.
+The rotation scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">rotation_scenarios</span> <span class="pre">``</span> <span class="pre">in</span> <span class="pre">``param.ini</span></code>. The script can handle multiple rotation scenarios.</p>
 </section>
 </section>
 <section id="r-script-execution">

@@ -82,6 +82,7 @@ Main Actions
 
 Scenario Configuration
 ----------------------
+The different scenarios are described below. Scenario configuration can be set in ``param.ini``.
 
 Climate Scenarios (Warming Scenarios)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -107,6 +108,8 @@ The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv
 in the data folder as, for example, ``ALARO_P_RCP-2.6.csv``,
 ``ALARO_P_RCP-4.5.csv``, and ``ALARO_P_RCP-8.5.csv``.
 
+The warming scenarios can be adjusted through ``warming_scenarios  `` in ``param.ini``. The script can handle multiple warming scenarios. 
+
 Straw Return Scenarios
 ^^^^^^^^^^^^^^^^^^^^^^
 The amount of straw returned to soil after harvest can be adjusted by modifying
@@ -119,7 +122,7 @@ In this exercise, three straw scenarios are defined:
 - **50%**: Half straw returned (SS = 0.5)
 - **100%**: All straw returned (SS = 0.0)
 
-These can be adjusted through ``step_straw_return``.
+These can be adjusted through ``straw_scenarios`` in ``param.ini``. The script can handle multiple straw scenarios. 
 
 Crop Rotation Scenarios
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -161,6 +164,7 @@ CreateRothCDataIn operates for each climate-rotation-straw combination in the lo
 			for k in range(len(rotation_scenarios)):
 
 Each data file serves as input to the RothC model in R. 
+The rotation scenarios can be adjusted through ``rotation_scenarios `` in ``param.ini``. The script can handle multiple rotation scenarios. 
 
 
 R Script Execution
