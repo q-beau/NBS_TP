@@ -119,8 +119,7 @@ Next Steps
 Once your environment is set up and verified:
 
 1. Proceed to the **Main Script Documentation** to understand the code structure
-2. Review the **Scientific Background** section to understand RothC modeling
-3. Execute the three cells sequentially in Spyder
-4. Analyze your results using the visualization tools
+2. Execute the three cells sequentially in Spyder
+3. Analyze your results using the visualization tools
 
 Ready to begin? Head to the **Main Script Documentation** section!
