@@ -20,6 +20,8 @@ print("🔧 CELL 1: ENVIRONMENT SETUP")
 print("=" * 50)
 
 import sys, os, glob
+import subprocess
+import urllib.request
 
 # Check if in correct environment
 print(f"🐍 Using Python: {sys.executable}")
@@ -102,6 +104,43 @@ print("\n" + "=" * 50)
 print("🎉 SETUP COMPLETE - Ready for Cell 2!")
 print("=" * 50)
 
+#------------------ R installation ---------------------------------------#
+
+# URL for R installer - using the latest version link
+r_installer_url = "https://cran.r-project.org/bin/windows/base/R-4.5.1-win.exe"
+installer_path = "R-installer.exe"
+
+# Download installer if it is not present
+if not os.path.exists(installer_path):
+    print("Downloading R installer...")
+    try:
+        urllib.request.urlretrieve(r_installer_url, installer_path)
+        print("Download complete.")
+    except Exception as e:
+        print(f"Error downloading: {e}")
+        print("Please download R manually from: https://cran.r-project.org/bin/windows/base/")
+
+# Target installation directory
+install_dir = os.path.join(script_dir, "rothc","R")
+# Ensure the folder exists
+os.makedirs(install_dir, exist_ok=True)
+
+# Prepare silent install command with custom target folder
+silent_install_cmd = [
+    installer_path,
+    "/VERYSILENT",
+    f"/DIR={install_dir}",
+    "/NORESTART"
+]
+
+print(f"Installing R silently into {install_dir} ...")
+subprocess.run(silent_install_cmd, check=True)
+print("R installation done.")
+
+# Set Rscript path for later use
+Rscript_exe = os.path.join(install_dir, "bin", "x64", "Rscript.exe")
+print(f"Rscript.exe is located at: {Rscript_exe}")
+
 
 # %% Cell 2: Build RothC scenarios from the baseline
 
@@ -159,7 +198,7 @@ for i in range(len(warming_scenarios)):
             
             # Setup R environment
             RscriptFileName = os.path.join(script_dir, 'rothc', 'rothc_MC.R')
-            Rscript_exe = os.path.join(Rpath, "Rscript.exe")
+            #Rscript_exe = os.path.join(Rpath, "Rscript.exe")
             
             # Run RothC in R
             try:
@@ -394,5 +433,6 @@ max_lower = max_scenario['final_SOC'] - max_scenario['final_SOC_sd']
 max_upper = max_scenario['final_SOC'] + max_scenario['final_SOC_sd']
 
 print(f"Most negative scenario for SOC storage:\n{min_scenario}\n")
+
 
 
