@@ -7,8 +7,7 @@ temperature, evapotranspiration), carbon (C) inputs from biomass, farmyard manur
 soil cover information. Model simulations are impacted by global warming scenario, crop rotation
 and management choices such as the percentage of straw returned to the soil at harvest. For this
 exercise, three levels of scenario were selected: three warming scenarios, three rotation schemes 
-and a range of percentage of straw return to the soil. This leads to 27 possible climate-rotation-straw 
-combinations.
+and three straw return percentages. This leads to 27 possible climate-rotation-straw combinations.
 
 The main script ``main.py`` is divided into three cells. Each cell is designed to be run sequentially.
 
@@ -86,7 +85,7 @@ The different scenarios are described below. Scenario configuration can be set i
 
 Climate Scenarios (Warming Scenarios)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Weather forecasts over the 2025-2100 period are needed for future simulations. 
+Weather forecasts over the 2025-2100 period are needed for simulations in the future. 
 ALARO climate model generated data over Gembloux for three IPCC representative
 concentration pathways (RCP):
 
@@ -108,15 +107,15 @@ The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv
 in the data folder as, for example, ``ALARO_P_RCP-2.6.csv``,
 ``ALARO_P_RCP-4.5.csv``, and ``ALARO_P_RCP-8.5.csv``.
 
-The warming scenarios can be adjusted through ``warming_scenarios  `` in ``param.ini``. The script can handle multiple warming scenarios. 
+The warming scenarios can be adjusted through ``warming_scenarios`` in ``param.ini``. The script can handle multiple warming scenarios. 
 
 Straw Return Scenarios
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The amount of straw returned to the soil after harvest can be adjusted by modifying the Bolinder coefficients in``data/CoeffBolinder.csv``. 
-n the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios. 
+In the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios. 
 These scenarios can be specified via ``straw_scenarios`` in ``param.ini``
-The script supports multiple straw scenarios. For example, if ``straw_scenarios = 15,10,5`` in ``param.ini``, the SS coefficient will be successively set to 0.15, 0.10, and 0.05. 
+For example, if ``straw_scenarios = 15,10,5`` in ``param.ini``, the SS coefficient will be successively set to 0.15, 0.10, and 0.05. 
 You may choose any values that suit your analysis.
 
 
@@ -125,8 +124,8 @@ Crop Rotation Scenarios
 Three crop rotation systems are compared:
 
 1. **baselinesubset**: Typical 4-year rotation (16-year subset from the Lonzée site)
-2. **ecofood_ref**: Modified baseline with root crops replaced by cereals (8-year, duplicated)
-3. **ecofood_vegan**: Vegan rotation without root crops (8-year, duplicated)
+2. **ecofoodref**: Modified baseline with root crops replaced by cereals (8-year, duplicated)
+3. **ecofoodvegan**: Vegan rotation without root crops (8-year, duplicated)
 
 The Lonzée site is a cropland located in Lonzée, SE of Gembloux. The cropland has been equipped with an eddy covariance flux tower since 2004. The site is part of the Integrated Carbon Observation System network since 2017. 
 More information on the Lonzée site are available at: https://www.icos-belgium.be/ESLonzee.php.
@@ -166,7 +165,7 @@ CreateRothCDataIn operates for each climate-rotation-straw combination in the lo
 			for k in range(len(rotation_scenarios)):
 
 Each data file serves as input to the RothC model in R. 
-The rotation scenarios can be adjusted through ``rotation_scenarios `` in ``param.ini``. The script can handle multiple rotation scenarios. 
+The rotation scenarios can be adjusted through ``rotation_scenarios`` in ``param.ini``.
 
 
 R Script Execution
@@ -207,51 +206,29 @@ showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-
 
 Visualization Features
 ----------------------
-The plotting system uses a three-dimensional visual encoding:
-
-1. **Color**: Represents warming scenarios (WS)
-   
-   - RCP 2.6: Blue (#a1afde)
-   - RCP 4.5: Orange (#fbc464)
-   - RCP 8.5: Red (#954130)
-
-2. **Line style**: Represents crop rotations (ROT)
-   
-   - ecofood_ref: Dotted line (':')
-   - ecofood_vegan: Solid line ('-')
-   - baselinesubset: Dash-dot line ('-.')
-
-3. **Hatch pattern**: Represents straw return scenarios (SR)
-   
-   - 0%: No hatch (light gray fill)
-   - 50%: Horizontal lines ('---')
-   - 100%: Plus signs ('+++')
-
-Result File Selection
----------------------
+The proposed visualization tool proposes a 2D and 3D plot.
 The ``SelectCrit`` variable controls which CSV files are loaded and plotted:
 
 Options
 ^^^^^^^
 - ``'All'``: Load all 27 result files
-- ``'WS'``: Select specific warming scenario (requires ``SelectWS``)
-- ``'ST'``: Select specific straw return (requires ``SelectST``)
-- ``'WS+ST'``: Select warming + straw combination
-- ``'WS+ROT'``: Select warming + rotation combination
+- ``'WS+ST'``: Select warming + straw combination (requires ``SelectST`` and ``SelectWS``)
+- ``'WS+ROT'``: Select warming + rotation combination (requires ``SelectROT`` and ``SelectWS``)
 
 Example
 ^^^^^^^
-To visualize all straw return scenarios for RCP 2.6 with ecofood_ref rotation::
+To visualize all straw return scenarios for RCP 2.6 with ecofoodref rotation::
 
     SelectCrit = 'WS+ROT'
     SelectWS = '2.6'
-    SelectROT = 'ecofood_ref'
+    SelectROT = 'ecofoodref'
 
 This will load three files:
 
-- ``SOC_paramMC_summary_2.6_ecofood_ref_0.csv``
-- ``SOC_paramMC_summary_2.6_ecofood_ref_50.csv``
-- ``SOC_paramMC_summary_2.6_ecofood_ref_100.csv``
+- ``SOC_paramMC_summary_2.6_ecofoodref_0.csv``
+- ``SOC_paramMC_summary_2.6_ecofoodref_50.csv``
+- ``SOC_paramMC_summary_2.6_ecofoodref_100.csv``
+
 
 Result File Structure
 ---------------------
@@ -268,11 +245,28 @@ Columns
 The uncertainty estimates come from Monte Carlo simulations with RothC parameter
 uncertainty propagation.
 
-Plot Components
----------------
+These files are stored in ``all_results``. The dict is further sliced according to a specific reporting period ``rp`` (set to 16 by default).
 
-Main Plot
-^^^^^^^^^
+Main Plot Components
+---------------------
+
+The main plot style convention is:: 
+
+1. **Color**: Represents warming scenarios (WS)
+   
+   - RCP 2.6: Blue (#a1afde)
+   - RCP 4.5: Orange (#fbc464)
+   - RCP 8.5: Red (#954130)
+
+2. **Line style**: Represents crop rotations (ROT)
+   
+   - ecofoodref: Dotted line (':')
+   - ecofoodvegan: Solid line ('-')
+   - baselinesubset: Dash-dot line ('-.')
+
+3. **Hatch pattern**: Represents straw return scenarios (SR)
+  
+With::
 - **X-axis**: Month since initial date
 - **Y-axis**: SOC stock (t/ha)
 - **Line plots**: Mean SOC evolution (``ax.plot``)
@@ -280,7 +274,7 @@ Main Plot
 
 The shaded uncertainty bands are transparent with hatching patterns that indicate
 the straw return scenario. The edge color of the hatch matches the line color
-(warming scenario).
+(warming scenario). The line style indicates the rotation.
 
 Legend
 ^^^^^^
@@ -295,32 +289,13 @@ Only combinations actually present in the data are shown in the legend.
 Output
 ------
 The final figure is saved as a PNG file in the results folder with a filename
-constructed from all legend elements::
+constructed from all legend elements.The figure resolution is set to 1200 DPI.
 
-    results/WS 2.6, ecofood_ref, SR 0, SR 50, SR 100.png
 
-The figure resolution is set to 1200 DPI for publication quality.
+Second Plot Components
+----------------------
 
-Interactive Visualization
--------------------------
-The magic command ``%matplotlib qt`` enables interactive plotting in a separate
-window, allowing zoom, pan, and exploration of the results.
-
-Example Result
---------------
-A typical plot shows:
-
-- Multiple SOC trajectories over 75 years (2025-2100)
-- Uncertainty bands showing Monte Carlo parameter uncertainty
-- Clear visual distinction between scenarios using color/line/hatch encoding
-- Grid lines for easier value reading
-- Comprehensive legend explaining all visual elements
-
-Troubleshooting
----------------
-If no plots appear:
-
-1. Check that result CSV files exist in the results folder
-2. Verify SelectCrit matches available files
-3. Ensure matplotlib backend is properly configured
-4. Check console for error messages during file loading
+A 3D scatter plot will pop-up in your default browser, showing the final SOC stock simulations according to each climate-rotation-straw combination. 
+This helps identifying the most favorable and unfavorable scenario for SOC sequestration. 
+Additionnaly, the two commands ``print(f"Most favorable scenario for SOC storage:\n{min_scenario}\n")`` and ``print(f"Most negative scenario for SOC storage:\n{max_scenario}\n")``
+show these two extreme scenarios.

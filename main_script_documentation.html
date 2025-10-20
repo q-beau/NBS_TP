@@ -79,8 +79,7 @@ temperature, evapotranspiration), carbon (C) inputs from biomass, farmyard manur
 soil cover information. Model simulations are impacted by global warming scenario, crop rotation
 and management choices such as the percentage of straw returned to the soil at harvest. For this
 exercise, three levels of scenario were selected: three warming scenarios, three rotation schemes
-and a range of percentage of straw return to the soil. This leads to 27 possible climate-rotation-straw
-combinations.</p>
+and three straw return percentages. This leads to 27 possible climate-rotation-straw combinations.</p>
 <p>The main script <code class="docutils literal notranslate"><span class="pre">main.py</span></code> is divided into three cells. Each cell is designed to be run sequentially.</p>
 <section id="cell-1-environment-setup-and-package-verification">
 <h2>CELL 1: Environment Setup and Package Verification<a class="headerlink" href="#cell-1-environment-setup-and-package-verification" title="Link to this heading"></a></h2>
@@ -158,7 +157,7 @@ combinations of warming scenarios, straw return percentages, and crop rotations.
 <p>The different scenarios are described below. Scenario configuration can be set in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>.</p>
 <section id="climate-scenarios-warming-scenarios">
 <h3>Climate Scenarios (Warming Scenarios)<a class="headerlink" href="#climate-scenarios-warming-scenarios" title="Link to this heading"></a></h3>
-<p>Weather forecasts over the 2025-2100 period are needed for future simulations.
+<p>Weather forecasts over the 2025-2100 period are needed for simulations in the future.
 ALARO climate model generated data over Gembloux for three IPCC representative
 concentration pathways (RCP):</p>
 <ul class="simple">
@@ -178,14 +177,14 @@ concentration pathways (RCP):</p>
 The function ExtractMonthlyDataALARO processes the NetCDF files locally into csv files with monthly climate data already available
 in the data folder as, for example, <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-2.6.csv</span></code>,
 <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-4.5.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">ALARO_P_RCP-8.5.csv</span></code>.</p>
-<p>The warming scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">warming_scenarios</span>&#160; <span class="pre">``</span> <span class="pre">in</span> <span class="pre">``param.ini</span></code>. The script can handle multiple warming scenarios.</p>
+<p>The warming scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">warming_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>. The script can handle multiple warming scenarios.</p>
 </section>
 <section id="straw-return-scenarios">
 <h3>Straw Return Scenarios<a class="headerlink" href="#straw-return-scenarios" title="Link to this heading"></a></h3>
 <p>The amount of straw returned to the soil after harvest can be adjusted by modifying the Bolinder coefficients in``data/CoeffBolinder.csv``.
-n the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios.
+In the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios.
 These scenarios can be specified via <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>
-The script supports multiple straw scenarios. For example, if <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span> <span class="pre">=</span> <span class="pre">15,10,5</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>, the SS coefficient will be successively set to 0.15, 0.10, and 0.05.
+For example, if <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span> <span class="pre">=</span> <span class="pre">15,10,5</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>, the SS coefficient will be successively set to 0.15, 0.10, and 0.05.
 You may choose any values that suit your analysis.</p>
 </section>
 <section id="crop-rotation-scenarios">
@@ -193,8 +192,8 @@ You may choose any values that suit your analysis.</p>
 <p>Three crop rotation systems are compared:</p>
 <ol class="arabic simple">
 <li><p><strong>baselinesubset</strong>: Typical 4-year rotation (16-year subset from the Lonzée site)</p></li>
-<li><p><strong>ecofood_ref</strong>: Modified baseline with root crops replaced by cereals (8-year, duplicated)</p></li>
-<li><p><strong>ecofood_vegan</strong>: Vegan rotation without root crops (8-year, duplicated)</p></li>
+<li><p><strong>ecofoodref</strong>: Modified baseline with root crops replaced by cereals (8-year, duplicated)</p></li>
+<li><p><strong>ecofoodvegan</strong>: Vegan rotation without root crops (8-year, duplicated)</p></li>
 </ol>
 <p>The Lonzée site is a cropland located in Lonzée, SE of Gembloux. The cropland has been equipped with an eddy covariance flux tower since 2004. The site is part of the Integrated Carbon Observation System network since 2017.
 More information on the Lonzée site are available at: <a class="reference external" href="https://www.icos-belgium.be/ESLonzee.php">https://www.icos-belgium.be/ESLonzee.php</a>.
@@ -232,7 +231,7 @@ the rest is equally distributed over the three months previous to harvest.</p>
 </pre></div>
 </div>
 <p>Each data file serves as input to the RothC model in R.
-The rotation scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">rotation_scenarios</span> <span class="pre">``</span> <span class="pre">in</span> <span class="pre">``param.ini</span></code>. The script can handle multiple rotation scenarios.</p>
+The rotation scenarios can be adjusted through <code class="docutils literal notranslate"><span class="pre">rotation_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>.</p>
 </section>
 </section>
 <section id="r-script-execution">
@@ -273,57 +272,29 @@ showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-
 </section>
 <section id="visualization-features">
 <h2>Visualization Features<a class="headerlink" href="#visualization-features" title="Link to this heading"></a></h2>
-<p>The plotting system uses a three-dimensional visual encoding:</p>
-<ol class="arabic simple">
-<li><p><strong>Color</strong>: Represents warming scenarios (WS)</p>
-<ul class="simple">
-<li><p>RCP 2.6: Blue (#a1afde)</p></li>
-<li><p>RCP 4.5: Orange (#fbc464)</p></li>
-<li><p>RCP 8.5: Red (#954130)</p></li>
-</ul>
-</li>
-<li><p><strong>Line style</strong>: Represents crop rotations (ROT)</p>
-<ul class="simple">
-<li><p>ecofood_ref: Dotted line (‘:’)</p></li>
-<li><p>ecofood_vegan: Solid line (‘-‘)</p></li>
-<li><p>baselinesubset: Dash-dot line (‘-.’)</p></li>
-</ul>
-</li>
-<li><p><strong>Hatch pattern</strong>: Represents straw return scenarios (SR)</p>
-<ul class="simple">
-<li><p>0%: No hatch (light gray fill)</p></li>
-<li><p>50%: Horizontal lines (’—‘)</p></li>
-<li><p>100%: Plus signs (‘+++’)</p></li>
-</ul>
-</li>
-</ol>
-</section>
-<section id="result-file-selection">
-<h2>Result File Selection<a class="headerlink" href="#result-file-selection" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">SelectCrit</span></code> variable controls which CSV files are loaded and plotted:</p>
+<p>The proposed visualization tool proposes a 2D and 3D plot.
+The <code class="docutils literal notranslate"><span class="pre">SelectCrit</span></code> variable controls which CSV files are loaded and plotted:</p>
 <section id="options">
 <h3>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">'All'</span></code>: Load all 27 result files</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'WS'</span></code>: Select specific warming scenario (requires <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'ST'</span></code>: Select specific straw return (requires <code class="docutils literal notranslate"><span class="pre">SelectST</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ST'</span></code>: Select warming + straw combination</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ROT'</span></code>: Select warming + rotation combination</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ST'</span></code>: Select warming + straw combination (requires <code class="docutils literal notranslate"><span class="pre">SelectST</span></code> and <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ROT'</span></code>: Select warming + rotation combination (requires <code class="docutils literal notranslate"><span class="pre">SelectROT</span></code> and <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
 </ul>
 </section>
 <section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
-<p>To visualize all straw return scenarios for RCP 2.6 with ecofood_ref rotation:</p>
+<p>To visualize all straw return scenarios for RCP 2.6 with ecofoodref rotation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SelectCrit</span> <span class="o">=</span> <span class="s1">&#39;WS+ROT&#39;</span>
 <span class="n">SelectWS</span> <span class="o">=</span> <span class="s1">&#39;2.6&#39;</span>
-<span class="n">SelectROT</span> <span class="o">=</span> <span class="s1">&#39;ecofood_ref&#39;</span>
+<span class="n">SelectROT</span> <span class="o">=</span> <span class="s1">&#39;ecofoodref&#39;</span>
 </pre></div>
 </div>
 <p>This will load three files:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_0.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_50.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofood_ref_100.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_0.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_50.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_100.csv</span></code></p></li>
 </ul>
 </section>
 </section>
@@ -341,22 +312,37 @@ showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-
 </ul>
 <p>The uncertainty estimates come from Monte Carlo simulations with RothC parameter
 uncertainty propagation.</p>
+<p>These files are stored in <code class="docutils literal notranslate"><span class="pre">all_results</span></code>. The dict is further sliced according to a specific reporting period <code class="docutils literal notranslate"><span class="pre">rp</span></code> (set to 16 by default).</p>
 </section>
 </section>
-<section id="plot-components">
-<h2>Plot Components<a class="headerlink" href="#plot-components" title="Link to this heading"></a></h2>
-<section id="main-plot">
-<h3>Main Plot<a class="headerlink" href="#main-plot" title="Link to this heading"></a></h3>
+<section id="main-plot-components">
+<h2>Main Plot Components<a class="headerlink" href="#main-plot-components" title="Link to this heading"></a></h2>
+<p>The main plot style convention is:</p>
+<ol class="arabic simple">
+<li><p><strong>Color</strong>: Represents warming scenarios (WS)</p>
 <ul class="simple">
-<li><p><strong>X-axis</strong>: Month since initial date</p></li>
-<li><p><strong>Y-axis</strong>: SOC stock (t/ha)</p></li>
-<li><p><strong>Line plots</strong>: Mean SOC evolution (<code class="docutils literal notranslate"><span class="pre">ax.plot</span></code>)</p></li>
-<li><p><strong>Shaded bands</strong>: ±1 standard deviation uncertainty (<code class="docutils literal notranslate"><span class="pre">ax.fill_between</span></code>)</p></li>
+<li><p>RCP 2.6: Blue (#a1afde)</p></li>
+<li><p>RCP 4.5: Orange (#fbc464)</p></li>
+<li><p>RCP 8.5: Red (#954130)</p></li>
 </ul>
+</li>
+<li><p><strong>Line style</strong>: Represents crop rotations (ROT)</p>
+<ul class="simple">
+<li><p>ecofoodref: Dotted line (‘:’)</p></li>
+<li><p>ecofoodvegan: Solid line (‘-‘)</p></li>
+<li><p>baselinesubset: Dash-dot line (‘-.’)</p></li>
+</ul>
+</li>
+<li><p><strong>Hatch pattern</strong>: Represents straw return scenarios (SR)</p></li>
+</ol>
+<p>With::
+- <strong>X-axis</strong>: Month since initial date
+- <strong>Y-axis</strong>: SOC stock (t/ha)
+- <strong>Line plots</strong>: Mean SOC evolution (<code class="docutils literal notranslate"><span class="pre">ax.plot</span></code>)
+- <strong>Shaded bands</strong>: ±1 standard deviation uncertainty (<code class="docutils literal notranslate"><span class="pre">ax.fill_between</span></code>)</p>
 <p>The shaded uncertainty bands are transparent with hatching patterns that indicate
 the straw return scenario. The edge color of the hatch matches the line color
-(warming scenario).</p>
-</section>
+(warming scenario). The line style indicates the rotation.</p>
 <section id="legend">
 <h3>Legend<a class="headerlink" href="#legend" title="Link to this heading"></a></h3>
 <p>The legend displays all visual encoding elements present in the selected data:</p>
@@ -371,37 +357,14 @@ the straw return scenario. The edge color of the hatch matches the line color
 <section id="output">
 <h2>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
 <p>The final figure is saved as a PNG file in the results folder with a filename
-constructed from all legend elements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">/</span><span class="n">WS</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">ecofood_ref</span><span class="p">,</span> <span class="n">SR</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SR</span> <span class="mi">50</span><span class="p">,</span> <span class="n">SR</span> <span class="mf">100.</span><span class="n">png</span>
-</pre></div>
-</div>
-<p>The figure resolution is set to 1200 DPI for publication quality.</p>
+constructed from all legend elements.The figure resolution is set to 1200 DPI.</p>
 </section>
-<section id="interactive-visualization">
-<h2>Interactive Visualization<a class="headerlink" href="#interactive-visualization" title="Link to this heading"></a></h2>
-<p>The magic command <code class="docutils literal notranslate"><span class="pre">%matplotlib</span> <span class="pre">qt</span></code> enables interactive plotting in a separate
-window, allowing zoom, pan, and exploration of the results.</p>
-</section>
-<section id="example-result">
-<h2>Example Result<a class="headerlink" href="#example-result" title="Link to this heading"></a></h2>
-<p>A typical plot shows:</p>
-<ul class="simple">
-<li><p>Multiple SOC trajectories over 75 years (2025-2100)</p></li>
-<li><p>Uncertainty bands showing Monte Carlo parameter uncertainty</p></li>
-<li><p>Clear visual distinction between scenarios using color/line/hatch encoding</p></li>
-<li><p>Grid lines for easier value reading</p></li>
-<li><p>Comprehensive legend explaining all visual elements</p></li>
-</ul>
-</section>
-<section id="id4">
-<h2>Troubleshooting<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<p>If no plots appear:</p>
-<ol class="arabic simple">
-<li><p>Check that result CSV files exist in the results folder</p></li>
-<li><p>Verify SelectCrit matches available files</p></li>
-<li><p>Ensure matplotlib backend is properly configured</p></li>
-<li><p>Check console for error messages during file loading</p></li>
-</ol>
+<section id="second-plot-components">
+<h2>Second Plot Components<a class="headerlink" href="#second-plot-components" title="Link to this heading"></a></h2>
+<p>A 3D scatter plot will pop-up in your default browser, showing the final SOC stock simulations according to each climate-rotation-straw combination.
+This helps identifying the most favorable and unfavorable scenario for SOC sequestration.
+Additionnaly, the two commands <code class="docutils literal notranslate"><span class="pre">print(f&quot;Most</span> <span class="pre">favorable</span> <span class="pre">scenario</span> <span class="pre">for</span> <span class="pre">SOC</span> <span class="pre">storage:\n{min_scenario}\n&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">print(f&quot;Most</span> <span class="pre">negative</span> <span class="pre">scenario</span> <span class="pre">for</span> <span class="pre">SOC</span> <span class="pre">storage:\n{max_scenario}\n&quot;)</span></code>
+show these two extreme scenarios.</p>
 </section>
 </section>
 
