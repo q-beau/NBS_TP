@@ -18,7 +18,7 @@ This folder will be created in your ``C`` using Anaconda Prompt::
 
     mkdir C:\Cours_NbS_TP 
 
-Then sets the working directory to this folder::
+Then set the working directory to this folder::
 
     cd C:\Cours_NbS_TP
 	
@@ -74,6 +74,7 @@ After cloning the repository, your project folder should look like this::
 * ``data/CoeffBolinder.csv`` - Carbon allocation coefficients from Bolinder et al. (2007)
 * ``data/crop_calendar_*.csv`` - Crop rotation schedules for different scenarios
 * ``rothc/rothc_MC.R`` - RothC model implementation with Monte Carlo uncertainty
+* ``rothc/R`` - Folder where R is installed
 
 Opening the Project in Spyder
 ------------------------------
@@ -88,11 +89,6 @@ Always launch Spyder from within the activated conda environment::
 **Step 2: Open the Main Script**
 
 In Spyder, go to **File → Open** and navigate to ``main.py``.
-
-**Step 3: Set Working Directory**
-
-Spyder should automatically detect the script's directory as the working directory.
-Verify this in the IPython console - it should show your project folder path.
 
 Verifying Your Setup
 --------------------

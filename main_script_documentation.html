@@ -19,7 +19,6 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Instructions" href="instructions.html" />
     <link rel="prev" title="Getting Started" href="getting_started.html" /> 
 </head>
 
@@ -46,7 +45,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Main Script Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions</a></li>
 </ul>
 
         </div>
@@ -93,7 +91,7 @@ combinations.</p>
 the workspace by:</p>
 <ol class="arabic simple">
 <li><p>Checking Python environment and version</p></li>
-<li><p>Setting up directory paths (data, results, functions)</p></li>
+<li><p>Setting up directory paths (data, results, functions, working directory)</p></li>
 <li><p>Verifying required packages are installed</p></li>
 <li><p>Cleaning previous results from earlier runs</p></li>
 <li><p>Installing R directly into <code class="docutils literal notranslate"><span class="pre">rothc/R/</span></code></p></li>
@@ -184,16 +182,11 @@ in the data folder as, for example, <code class="docutils literal notranslate"><
 </section>
 <section id="straw-return-scenarios">
 <h3>Straw Return Scenarios<a class="headerlink" href="#straw-return-scenarios" title="Link to this heading"></a></h3>
-<p>The amount of straw returned to soil after harvest can be adjusted by modifying
-Bolinder coefficients in <code class="docutils literal notranslate"><span class="pre">data/CoeffBolinder.csv</span></code>. In the original coefficients,
-15% of straw is returned (85% exported), giving a SS coefficient of 0.15 for winter wheat.</p>
-<p>In this exercise, three straw scenarios are defined:</p>
-<ul class="simple">
-<li><p><strong>0%</strong>: All straw exported (SS = 1.0)</p></li>
-<li><p><strong>50%</strong>: Half straw returned (SS = 0.5)</p></li>
-<li><p><strong>100%</strong>: All straw returned (SS = 0.0)</p></li>
-</ul>
-<p>These can be adjusted through <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>. The script can handle multiple straw scenarios.</p>
+<p>The amount of straw returned to the soil after harvest can be adjusted by modifying the Bolinder coefficients in``data/CoeffBolinder.csv``.
+n the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios.
+These scenarios can be specified via <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>
+The script supports multiple straw scenarios. For example, if <code class="docutils literal notranslate"><span class="pre">straw_scenarios</span> <span class="pre">=</span> <span class="pre">15,10,5</span></code> in <code class="docutils literal notranslate"><span class="pre">param.ini</span></code>, the SS coefficient will be successively set to 0.15, 0.10, and 0.05.
+You may choose any values that suit your analysis.</p>
 </section>
 <section id="crop-rotation-scenarios">
 <h3>Crop Rotation Scenarios<a class="headerlink" href="#crop-rotation-scenarios" title="Link to this heading"></a></h3>
@@ -203,6 +196,11 @@ Bolinder coefficients in <code class="docutils literal notranslate"><span class=
 <li><p><strong>ecofood_ref</strong>: Modified baseline with root crops replaced by cereals (8-year, duplicated)</p></li>
 <li><p><strong>ecofood_vegan</strong>: Vegan rotation without root crops (8-year, duplicated)</p></li>
 </ol>
+<p>The Lonzée site is a cropland located in Lonzée, SE of Gembloux. The cropland has been equipped with an eddy covariance flux tower since 2004. The site is part of the Integrated Carbon Observation System network since 2017.
+More information on the Lonzée site are available at: <a class="reference external" href="https://www.icos-belgium.be/ESLonzee.php">https://www.icos-belgium.be/ESLonzee.php</a>.
+The EcoFood rotations are 8-year rotations tested by the long-term experiment EcoFood.
+These rotations, developed using both crop optimization tools and dietary modeling, are being tested to determine whether the co-evolution between agricultural systems and contrasting food systems is coherent or in competition with one another in terms of food security, agronomic performance, and environmental objectives.
+More information are available at: <a class="reference external" href="https://www.terra.uliege.be/cms/c_5895187/fr/terra-experiences-de-longue-duree#ecofoodfr">https://www.terra.uliege.be/cms/c_5895187/fr/terra-experiences-de-longue-duree#ecofoodfr</a></p>
 <p>Crop calendars for each rotation are provided as:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">crop_calendar_baselinesubset.csv</span></code></p></li>
@@ -270,8 +268,8 @@ combination, this script:</p>
 </section>
 <section id="id3">
 <h2>Purpose<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>This cell loads RothC simulation results and creates publication-quality visualizations
-showing SOC stock evolution over time with uncertainty bands.</p>
+<p>This cell loads RothC simulation results and creates visualizations
+showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-D plot will be shown to visualize the ensemble of results accoring to the climate-rotation-straw scenarios.</p>
 </section>
 <section id="visualization-features">
 <h2>Visualization Features<a class="headerlink" href="#visualization-features" title="Link to this heading"></a></h2>
@@ -412,7 +410,6 @@ window, allowing zoom, pan, and exploration of the results.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="instructions.html" class="btn btn-neutral float-right" title="Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -21,7 +21,6 @@ The exercise is organized in three main parts:
 
 1. **Getting Started**: Prepare your workspace and your conda environment
 2. **Main Script Documentation**: Explain the structure of the main script
-3. **Instructions**: Explain the research questions to explore during the exercise
 
 Documentation Contents
 ======================
@@ -33,7 +32,6 @@ Documentation Contents
 
    getting_started
    main_script_documentation
-   instructions
 
 Indices and Navigation
 ======================

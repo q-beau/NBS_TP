@@ -22,7 +22,7 @@ This cell verifies that the correct conda environment (NBS_TP) is active and pre
 the workspace by:
 
 1. Checking Python environment and version
-2. Setting up directory paths (data, results, functions)
+2. Setting up directory paths (data, results, functions, working directory)
 3. Verifying required packages are installed
 4. Cleaning previous results from earlier runs
 5. Installing R directly into ``rothc/R/``
@@ -112,17 +112,13 @@ The warming scenarios can be adjusted through ``warming_scenarios  `` in ``param
 
 Straw Return Scenarios
 ^^^^^^^^^^^^^^^^^^^^^^
-The amount of straw returned to soil after harvest can be adjusted by modifying
-Bolinder coefficients in ``data/CoeffBolinder.csv``. In the original coefficients,
-15% of straw is returned (85% exported), giving a SS coefficient of 0.15 for winter wheat.
 
-In this exercise, three straw scenarios are defined:
+The amount of straw returned to the soil after harvest can be adjusted by modifying the Bolinder coefficients in``data/CoeffBolinder.csv``. 
+n the default settings, 15% of straw is returned (85% exported), corresponding to a SS coefficient of 0.15 for winter wheat. In this exercise, you are invited to define three straw return scenarios. 
+These scenarios can be specified via ``straw_scenarios`` in ``param.ini``
+The script supports multiple straw scenarios. For example, if ``straw_scenarios = 15,10,5`` in ``param.ini``, the SS coefficient will be successively set to 0.15, 0.10, and 0.05. 
+You may choose any values that suit your analysis.
 
-- **0%**: All straw exported (SS = 1.0)
-- **50%**: Half straw returned (SS = 0.5)
-- **100%**: All straw returned (SS = 0.0)
-
-These can be adjusted through ``straw_scenarios`` in ``param.ini``. The script can handle multiple straw scenarios. 
 
 Crop Rotation Scenarios
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -131,6 +127,12 @@ Three crop rotation systems are compared:
 1. **baselinesubset**: Typical 4-year rotation (16-year subset from the Lonzée site)
 2. **ecofood_ref**: Modified baseline with root crops replaced by cereals (8-year, duplicated)
 3. **ecofood_vegan**: Vegan rotation without root crops (8-year, duplicated)
+
+The Lonzée site is a cropland located in Lonzée, SE of Gembloux. The cropland has been equipped with an eddy covariance flux tower since 2004. The site is part of the Integrated Carbon Observation System network since 2017. 
+More information on the Lonzée site are available at: https://www.icos-belgium.be/ESLonzee.php.
+The EcoFood rotations are 8-year rotations tested by the long-term experiment EcoFood. 
+These rotations, developed using both crop optimization tools and dietary modeling, are being tested to determine whether the co-evolution between agricultural systems and contrasting food systems is coherent or in competition with one another in terms of food security, agronomic performance, and environmental objectives.
+More information are available at: https://www.terra.uliege.be/cms/c_5895187/fr/terra-experiences-de-longue-duree#ecofoodfr
 
 Crop calendars for each rotation are provided as:
 
@@ -200,8 +202,8 @@ CELL 3: Visualize RothC Results
 --------------------------------
 Purpose
 -------
-This cell loads RothC simulation results and creates publication-quality visualizations
-showing SOC stock evolution over time with uncertainty bands.
+This cell loads RothC simulation results and creates visualizations
+showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-D plot will be shown to visualize the ensemble of results accoring to the climate-rotation-straw scenarios.
 
 Visualization Features
 ----------------------
