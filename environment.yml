@@ -12,5 +12,5 @@ dependencies:
   - seaborn
   - plotly
   - configparser
-  - urllib
+
 
