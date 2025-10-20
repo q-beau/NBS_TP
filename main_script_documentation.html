@@ -335,11 +335,13 @@ uncertainty propagation.</p>
 </li>
 <li><p><strong>Hatch pattern</strong>: Represents straw return scenarios (SR)</p></li>
 </ol>
-<p>With::
-- <strong>X-axis</strong>: Month since initial date
-- <strong>Y-axis</strong>: SOC stock (t/ha)
-- <strong>Line plots</strong>: Mean SOC evolution (<code class="docutils literal notranslate"><span class="pre">ax.plot</span></code>)
-- <strong>Shaded bands</strong>: ±1 standard deviation uncertainty (<code class="docutils literal notranslate"><span class="pre">ax.fill_between</span></code>)</p>
+<p>With:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- **X-axis**: Month since initial date
+- **Y-axis**: SOC stock (t/ha)
+- **Line plots**: Mean SOC evolution (``ax.plot``)
+- **Shaded bands**: ±1 standard deviation uncertainty (``ax.fill_between``)
+</pre></div>
+</div>
 <p>The shaded uncertainty bands are transparent with hatching patterns that indicate
 the straw return scenario. The edge color of the hatch matches the line color
 (warming scenario). The line style indicates the rotation.</p>

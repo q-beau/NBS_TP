@@ -267,6 +267,7 @@ The main plot style convention is::
 3. **Hatch pattern**: Represents straw return scenarios (SR)
   
 With::
+
 - **X-axis**: Month since initial date
 - **Y-axis**: SOC stock (t/ha)
 - **Line plots**: Mean SOC evolution (``ax.plot``)
