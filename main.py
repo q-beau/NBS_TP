@@ -160,8 +160,6 @@ import configparser
 #------------------ Script variables ---------------------------------------#
 config = configparser.ConfigParser()
 config.read(os.path.join(script_dir, 'param.ini'))
-#Rpath
-Rpath = config['Paths']['Rpath']
 #Warming scenarios
 warming_scenarios = config['Scenarios']['warming_scenarios'].split(',')
 #Straw return percentage
@@ -433,6 +431,7 @@ max_lower = max_scenario['final_SOC'] - max_scenario['final_SOC_sd']
 max_upper = max_scenario['final_SOC'] + max_scenario['final_SOC_sd']
 
 print(f"Most negative scenario for SOC storage:\n{min_scenario}\n")
+
 
 
 
