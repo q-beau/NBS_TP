@@ -40,6 +40,10 @@ data_path = os.path.join(script_dir, 'data')
 results_path = os.path.join(script_dir, 'results')
 functions_dir = os.path.join(script_dir, "functions")
 
+# Setup working directory
+os.chdir(script_dir)
+os.getcwd()
+
 # Add functions directory to path
 sys.path.insert(0, functions_dir)
 
@@ -440,6 +444,7 @@ max_lower = max_scenario['final_SOC'] - max_scenario['final_SOC_sd']
 max_upper = max_scenario['final_SOC'] + max_scenario['final_SOC_sd']
 
 print(f"Most negative scenario for SOC storage:\n{max_scenario}\n")
+
 
 
 
