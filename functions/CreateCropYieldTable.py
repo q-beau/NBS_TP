@@ -104,7 +104,13 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
     Cr = (merged["RR"] / merged["RP"]) * Cp
     Cs = (merged["RS"] / merged["RP"]) * Cp
     Ce = (merged["RE"] / merged["RP"]) * Cp
-    merged["Cin_Bol"] = Cp * merged["SP"] + Cr * merged["SR"] + Cs * merged["SS"] + Ce * merged["SE"]
+    #don't forget the scaling factor : equation (A3.1 Yue)
+    depth_allo = 40
+    depth = 30  # ref depth for Lonzée (SOC samplings)
+    beta = 0.961
+    sf = (1 - beta**depth) / (1 - beta**depth_allo)
+    
+    merged["Cin_Bol"] = (Cp * merged["SP"] + Cr * merged["SR"] + Cs * merged["SS"] + Ce * merged["SE"]) * sf
     
     # Keep only relevant columns in final yield_table
     final_yield_table = merged[
@@ -112,4 +118,5 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
     ]
     
     return final_yield_table
+
 
