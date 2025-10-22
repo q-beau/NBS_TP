@@ -246,7 +246,7 @@ elif SelectCrit == 'WS+ROT':
 all_results = {os.path.splitext(os.path.basename(f))[0]: pd.read_csv(f) for f in csv_files}
 
 #Fitler over the reporting period
-rp = 8 #reporting period in years
+rp = 16 #reporting period in years
 all_results_sliced = {key: df.iloc[0:rp*12] for key, df in all_results.items()}
 
 
@@ -444,6 +444,7 @@ max_lower = max_scenario['final_SOC'] - max_scenario['final_SOC_sd']
 max_upper = max_scenario['final_SOC'] + max_scenario['final_SOC_sd']
 
 print(f"Most negative scenario for SOC storage:\n{max_scenario}\n")
+
 
 
 
