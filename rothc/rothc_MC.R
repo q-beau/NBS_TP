@@ -51,7 +51,7 @@ BIO0=(0.0140*SOC_start+0.0075)*(clay+8.8473)^(0.0567)
 DPM0=SOC_start-(RPM0+HUM0+BIO0+FallIOM); if (DPM0 < 0) DPM0=0
 pool_size_baseline=c(DPM0,RPM0,BIO0,HUM0,FallIOM)
 
-soil.thick=23  
+soil.thick=30  
 
 years=seq(1:nrow(Temp)) 
 fT=fT.RothC(Temp[,2]) 
@@ -156,4 +156,5 @@ cat("Monthly summary of SOC and deltaSOC (mean, sd) saved.\n")
 
 
 ##########################################################################################################################################
+
 
