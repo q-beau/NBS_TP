@@ -24,16 +24,40 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
     # Load vegetation dataset
     vegetation_dataset = pd.read_excel(vegetation_data_path)
     
-    # Build table: average and std harvested biomass per crop species
-    yield_table = (
-        vegetation_dataset.groupby("Crop species", as_index=False)["Harvested biomass_total_avg (t/ha)"]
-        .agg(["mean", "std"])
-        .reset_index()
-        .rename(columns={
-            "mean": "Avg harvested biomass (t/ha)",
-            "std": "Std harvested biomass (t/ha)"
+    # # Build table: average and std harvested biomass per crop species
+    # yield_table = (
+    #     vegetation_dataset.groupby("Crop species", as_index=False)["Harvested biomass_total_avg (t/ha)"]
+    #     .agg(["mean", "std"])
+    #     .reset_index()
+    #     .rename(columns={
+    #         "mean": "Avg harvested biomass (t/ha)",
+    #         "std": "Std harvested biomass (t/ha)"
+    #     })
+    # )
+
+    def get_harvested_biomass_stats(group):
+        """Calculate mean and std of harvested biomass, using grain for winter wheat."""
+        crop = group["Crop species"].iloc[0]
+        
+        if crop == "Winter Wheat":
+            # Use grain biomass for winter wheat
+            values = group["Harvested biomass_grain_avg (t/ha)"]
+        else:
+            # Use total biomass for all other crops
+            values = group["Harvested biomass_total_avg (t/ha)"]
+        
+        return pd.Series({
+            "Avg harvested biomass (t/ha)": values.mean(),
+            "Std harvested biomass (t/ha)": values.std()
         })
+    
+    # Build table with conditional column selection
+    yield_table = (
+        vegetation_dataset.groupby("Crop species", as_index=False)
+        .apply(get_harvested_biomass_stats)
+        .reset_index(drop=True)
     )
+
     
     # Extract last value of each Mustard sequence for Total_dry_biomass_avg
     mustard_seq = vegetation_dataset['Crop species'] == "Mustard"
@@ -118,5 +142,6 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
     ]
     
     return final_yield_table
+
 
 
