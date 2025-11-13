@@ -39,7 +39,7 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
         """Calculate mean and std of harvested biomass, using grain for winter wheat."""
         crop = group["Crop species"].iloc[0]
         
-        if crop == "Winter Wheat":
+        if crop == "Winter Wheat" or crop == "Maize":
             # Use grain biomass for winter wheat
             values = group["Harvested biomass_grain_avg (t/ha)"]
         else:
@@ -142,6 +142,7 @@ def create_yield_table(vegetation_data_path, crop_names_dict, bolinder_coeff_tab
     ]
     
     return final_yield_table
+
 
 
 
