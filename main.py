@@ -110,39 +110,30 @@ print("=" * 50)
 
 #------------------ R installation ---------------------------------------#
 
-# URL for R installer - using the latest version link
-r_installer_url = "https://cran.r-project.org/bin/windows/base/R-4.5.1-win.exe"
+r_version = "4.5.1"
+r_installer_url = f"https://cran.r-project.org/bin/windows/base/old/{r_version}/R-{r_version}-win.exe"
 installer_path = "R-installer.exe"
-
-# Download installer if it is not present
-if not os.path.exists(installer_path):
-    print("Downloading R installer...")
-    try:
-        urllib.request.urlretrieve(r_installer_url, installer_path)
-        print("Download complete.")
-    except Exception as e:
-        print(f"Error downloading: {e}")
-        print("Please download R manually from: https://cran.r-project.org/bin/windows/base/")
-
-# Target installation directory
-install_dir = os.path.join(script_dir, "rothc","R")
-# Ensure the folder exists
-os.makedirs(install_dir, exist_ok=True)
-
-# Prepare silent install command with custom target folder
-silent_install_cmd = [
-    installer_path,
-    "/VERYSILENT",
-    f"/DIR={install_dir}",
-    "/NORESTART"
-]
-
-print(f"Installing R silently into {install_dir} ...")
-subprocess.run(silent_install_cmd, check=True)
-print("R installation done.")
-
-# Set Rscript path for later use
+install_dir = os.path.join(script_dir, "rothc", "R")
 Rscript_exe = os.path.join(install_dir, "bin", "x64", "Rscript.exe")
+
+if os.path.exists(Rscript_exe):
+    print("✅ R already installed, skipping.")
+else:
+    if not os.path.exists(installer_path):
+        print("Downloading R installer...")
+        try:
+            urllib.request.urlretrieve(r_installer_url, installer_path)
+            print("Download complete.")
+        except Exception as e:
+            raise RuntimeError(
+                f"R download failed ({e}). Download R {r_version} manually "
+                "from https://cran.r-project.org/bin/windows/base/old/ "
+                f"and save it as {installer_path} in {script_dir}")
+    os.makedirs(install_dir, exist_ok=True)
+    print(f"Installing R silently into {install_dir} ...")
+    subprocess.run([installer_path, "/VERYSILENT", f"/DIR={install_dir}", "/NORESTART"], check=True)
+    print("R installation done.")
+
 print(f"Rscript.exe is located at: {Rscript_exe}")
 
 
