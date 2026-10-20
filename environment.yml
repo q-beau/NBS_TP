@@ -1,13 +1,14 @@
-name: NBS_TP
+name: NbS_TP
 channels:
   - conda-forge
+  - nodefaults
 dependencies:
   - python=3.11
   - numpy
   - pandas
-  - matplotlib
-  - seaborn
+  - matplotlib-base
   - plotly
-  - pyqt
-  - spyder-kernels
-
+  - openpyxl
+  - tk
+  - git
+  - spyder-kernels=3.0.*
