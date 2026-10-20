@@ -5,10 +5,9 @@ channels:
 dependencies:
   - python=3.11
   - numpy
-  - pandas
+  - pandas=2.3
   - matplotlib-base
-  - plotly
   - openpyxl
-  - tk
   - git
-  - spyder-kernels=3.0.*
+  - spyder
+  - pyqt
