@@ -90,15 +90,9 @@ Launch Spyder using in Anaconda Prompt::
 
     spyder
 
-**Step 2: Set the correct environment in Spyder: go to Tools -> Preferences -> Python Interpretor -> Use the following interpreter and set to::
-
-	C:\Cours_NbS_TP\NbS_TP_env\python.exe
-
-Restart kernel (Consoles -> Restart kernel) and verify ::
+**Step 2: Verify that sys.executable shows NbS_TP_env** ::
 
 	import sys; print(sys.executable)
-
-The path should show NbS_TP_env.
 
 **Step 3: Open the Main Script**
 
