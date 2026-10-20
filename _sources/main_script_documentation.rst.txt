@@ -12,7 +12,7 @@ and three straw return percentages. This leads to 27 possible climate-rotation-s
 The main script ``main.py`` is divided into three cells. Each cell is designed to be run sequentially.
 
 
-CELL 1: Environment Setup and Package Verification
+CELL 1 and CELL 2: Environment Setup and Verification
 ---------------------------------------------------
 
 Purpose
@@ -64,7 +64,7 @@ Old result files matching these patterns are removed:
 
 This ensures each run starts with a clean slate.
 
-CELL 2: Launch RothC Simulations
+CELL 3:  Build scenarios and Run RothC
 ---------------------------------
 
 Purpose
@@ -197,37 +197,12 @@ If the R script fails to execute:
 
 
 
-CELL 3: Visualize RothC Results
+CELL 4: Visualize RothC Results
 --------------------------------
 Purpose
 -------
 This cell loads RothC simulation results and creates visualizations
-showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-D plot will be shown to visualize the ensemble of results accoring to the climate-rotation-straw scenarios.
-
-Visualization Features
-----------------------
-The proposed visualization tool proposes a 2D and 3D plot.
-The ``SelectCrit`` variable controls which CSV files are loaded and plotted:
-
-Options
-^^^^^^^
-- ``'All'``: Load all 27 result files
-- ``'WS+ST'``: Select warming + straw combination (requires ``SelectST`` and ``SelectWS``)
-- ``'WS+ROT'``: Select warming + rotation combination (requires ``SelectROT`` and ``SelectWS``)
-
-Example
-^^^^^^^
-To visualize all straw return scenarios for RCP 2.6 with ecofoodref rotation::
-
-    SelectCrit = 'WS+ROT'
-    SelectWS = '2.6'
-    SelectROT = 'ecofoodref'
-
-This will load three files:
-
-- ``SOC_paramMC_summary_2.6_ecofoodref_0.csv``
-- ``SOC_paramMC_summary_2.6_ecofoodref_50.csv``
-- ``SOC_paramMC_summary_2.6_ecofoodref_100.csv``
+showing SOC stock evolution over time with uncertainty bands. In total, three figures are produced: SOC_trajectories.png shows simulated SOC stock variations according to warming scenarios, straw return and crop rotations. final_deltaSOC.png shows a comparison between final SOC stock values. best_vs_baseline.png shows the difference in SOC stock variation between the most favorable scenario and the corresponding baseline.
 
 
 Result File Structure
@@ -244,59 +219,3 @@ Columns
 
 The uncertainty estimates come from Monte Carlo simulations with RothC parameter
 uncertainty propagation.
-
-These files are stored in ``all_results``. The dict is further sliced according to a specific reporting period ``rp`` (set to 16 by default).
-
-Main Plot Components
----------------------
-
-The main plot style convention is:: 
-
-1. **Color**: Represents warming scenarios (WS)
-   
-   - RCP 2.6: Blue (#a1afde)
-   - RCP 4.5: Orange (#fbc464)
-   - RCP 8.5: Red (#954130)
-
-2. **Line style**: Represents crop rotations (ROT)
-   
-   - ecofoodref: Dotted line (':')
-   - ecofoodvegan: Solid line ('-')
-   - baselinesubset: Dash-dot line ('-.')
-
-3. **Hatch pattern**: Represents straw return scenarios (SR)
-  
-With::
-
-- **X-axis**: Month since initial date
-- **Y-axis**: SOC stock (t/ha)
-- **Line plots**: Mean SOC evolution (``ax.plot``)
-- **Shaded bands**: ±1 standard deviation uncertainty (``ax.fill_between``)
-
-The shaded uncertainty bands are transparent with hatching patterns that indicate
-the straw return scenario. The edge color of the hatch matches the line color
-(warming scenario). The line style indicates the rotation.
-
-Legend
-^^^^^^
-The legend displays all visual encoding elements present in the selected data:
-
-- Color patches for each warming scenario
-- Line style examples for each rotation
-- Hatch patterns for each straw return level
-
-Only combinations actually present in the data are shown in the legend.
-
-Output
-------
-The final figure is saved as a PNG file in the results folder with a filename
-constructed from all legend elements.The figure resolution is set to 1200 DPI.
-
-
-Second Plot Components
-----------------------
-
-A 3D scatter plot will pop-up in your default browser, showing the final SOC stock simulations according to each climate-rotation-straw combination. 
-This helps identifying the most favorable and unfavorable scenario for SOC sequestration. 
-Additionnaly, the two commands ``print(f"Most favorable scenario for SOC storage:\n{min_scenario}\n")`` and ``print(f"Most negative scenario for SOC storage:\n{max_scenario}\n")``
-show these two extreme scenarios.

@@ -84,7 +84,7 @@
 <h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading"></a></h2>
 <p>You first need to select a location for setting the working directory for this exercise.
 To prevent compatibility issues, you must work from a folder with a path without blanks.
-This folder will be created in your <code class="docutils literal notranslate"><span class="pre">C</span></code> using Anaconda Prompt:</p>
+First, execute Anaconda Prompt as Administrator. Then, create the working folder in your <code class="docutils literal notranslate"><span class="pre">C</span></code> using</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>
 </pre></div>
 </div>
@@ -92,8 +92,8 @@ This folder will be created in your <code class="docutils literal notranslate"><
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>
 </pre></div>
 </div>
-<p>Install git:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">git</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+<p>Install git (5-10 mn):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">git</span> <span class="o">-</span><span class="n">n</span> <span class="n">base</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
 </pre></div>
 </div>
 <p>Ensure git is installed:</p>
@@ -102,17 +102,22 @@ This folder will be created in your <code class="docutils literal notranslate"><
 </div>
 <p>Clone the repository from GitHub using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">branch</span> <span class="n">main</span> <span class="o">--</span><span class="n">single</span><span class="o">-</span><span class="n">branch</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">q</span><span class="o">-</span><span class="n">beau</span><span class="o">/</span><span class="n">NBS_TP</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">NBS_TP</span>
 </pre></div>
 </div>
-<p>Now create and activate the environment using yml file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">--</span><span class="n">prefix</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">env_setup</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">env_setup</span>
+<p>Set working directory as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">NBS_TP</span>
 </pre></div>
 </div>
-<p>Wait 3-5 minutes for installation to complete.</p>
+<p>Now create the environment using yml file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">--</span><span class="n">prefix</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">NbS_TP_env</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>Activate the environment (3-5 mn):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">NbS_TP_env</span>
+</pre></div>
+</div>
 <p>For next time - Just run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">env_setup</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">NbS_TP_env</span>
 </pre></div>
 </div>
 </section>
@@ -149,39 +154,25 @@ This folder will be created in your <code class="docutils literal notranslate"><
 <section id="opening-the-project-in-spyder">
 <h2>Opening the Project in Spyder<a class="headerlink" href="#opening-the-project-in-spyder" title="Link to this heading"></a></h2>
 <p><strong>Step 1: Launch Spyder from the Correct Environment</strong></p>
-<p>Always launch Spyder from within the activated conda environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">NBS_TP</span>
-<span class="n">spyder</span>
+<p>Launch Spyder using in Anaconda Prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spyder</span>
 </pre></div>
 </div>
-<p><strong>Step 2: Open the Main Script</strong></p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Step 2: Set the correct environment in Spyder: go to Tools -&gt; Preferences -&gt; Python Interpretor -&gt; Use the following interpreter and set to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Cours_NbS_TP</span>\<span class="n">NbS_TP_env</span>\<span class="n">python</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>Restart kernel (Consoles -&gt; Restart kernel) and verify</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The path should show NbS_TP_env.</p>
+<p><strong>Step 3: Open the Main Script</strong></p>
 <p>In Spyder, go to <strong>File → Open</strong> and navigate to <code class="docutils literal notranslate"><span class="pre">main.py</span></code>.</p>
-</section>
-<section id="verifying-your-setup">
-<h2>Verifying Your Setup<a class="headerlink" href="#verifying-your-setup" title="Link to this heading"></a></h2>
-<p>Before running the main script, verify your setup is correct:</p>
-<p><strong>Check Python Environment</strong></p>
-<p>In Spyder’s IPython console, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This should show a path containing <code class="docutils literal notranslate"><span class="pre">NBS_TP</span></code>.</p>
-<p><strong>Check Data Files</strong></p>
-<ul class="simple">
-<li><p>Verify that all required CSV files exist in the <code class="docutils literal notranslate"><span class="pre">data/</span></code> folder.</p></li>
-<li><p>Check that <code class="docutils literal notranslate"><span class="pre">rothc/rothc_MC.R</span></code> exists in your project folder</p></li>
-</ul>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
-<p>Once your environment is set up and verified:</p>
-<ol class="arabic simple">
-<li><p>Proceed to the <strong>Main Script Documentation</strong> to understand the code structure</p></li>
-<li><p>Execute the three cells sequentially in Spyder</p></li>
-<li><p>Analyze your results using the visualization tools</p></li>
-</ol>
-<p>Ready to begin? Head to the <strong>Main Script Documentation</strong> section!</p>
+<p>Go to the <strong>Main Script Documentation</strong> section.</p>
 </section>
 </section>
 

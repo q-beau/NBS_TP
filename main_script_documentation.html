@@ -81,8 +81,8 @@ and management choices such as the percentage of straw returned to the soil at h
 exercise, three levels of scenario were selected: three warming scenarios, three rotation schemes
 and three straw return percentages. This leads to 27 possible climate-rotation-straw combinations.</p>
 <p>The main script <code class="docutils literal notranslate"><span class="pre">main.py</span></code> is divided into three cells. Each cell is designed to be run sequentially.</p>
-<section id="cell-1-environment-setup-and-package-verification">
-<h2>CELL 1: Environment Setup and Package Verification<a class="headerlink" href="#cell-1-environment-setup-and-package-verification" title="Link to this heading"></a></h2>
+<section id="cell-1-and-cell-2-environment-setup-and-verification">
+<h2>CELL 1 and CELL 2: Environment Setup and Verification<a class="headerlink" href="#cell-1-and-cell-2-environment-setup-and-verification" title="Link to this heading"></a></h2>
 </section>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading"></a></h2>
@@ -135,8 +135,8 @@ the workspace by:</p>
 </ul>
 <p>This ensures each run starts with a clean slate.</p>
 </section>
-<section id="cell-2-launch-rothc-simulations">
-<h2>CELL 2: Launch RothC Simulations<a class="headerlink" href="#cell-2-launch-rothc-simulations" title="Link to this heading"></a></h2>
+<section id="cell-3-build-scenarios-and-run-rothc">
+<h2>CELL 3:  Build scenarios and Run RothC<a class="headerlink" href="#cell-3-build-scenarios-and-run-rothc" title="Link to this heading"></a></h2>
 </section>
 <section id="id1">
 <h2>Purpose<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
@@ -262,41 +262,13 @@ combination, this script:</p>
 <li><p>Review error messages in STDERR output</p></li>
 </ol>
 </section>
-<section id="cell-3-visualize-rothc-results">
-<h2>CELL 3: Visualize RothC Results<a class="headerlink" href="#cell-3-visualize-rothc-results" title="Link to this heading"></a></h2>
+<section id="cell-4-visualize-rothc-results">
+<h2>CELL 4: Visualize RothC Results<a class="headerlink" href="#cell-4-visualize-rothc-results" title="Link to this heading"></a></h2>
 </section>
 <section id="id3">
 <h2>Purpose<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>This cell loads RothC simulation results and creates visualizations
-showing SOC stock evolution over time with uncertainty bands. Additionnaly, a 3-D plot will be shown to visualize the ensemble of results accoring to the climate-rotation-straw scenarios.</p>
-</section>
-<section id="visualization-features">
-<h2>Visualization Features<a class="headerlink" href="#visualization-features" title="Link to this heading"></a></h2>
-<p>The proposed visualization tool proposes a 2D and 3D plot.
-The <code class="docutils literal notranslate"><span class="pre">SelectCrit</span></code> variable controls which CSV files are loaded and plotted:</p>
-<section id="options">
-<h3>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">'All'</span></code>: Load all 27 result files</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ST'</span></code>: Select warming + straw combination (requires <code class="docutils literal notranslate"><span class="pre">SelectST</span></code> and <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'WS+ROT'</span></code>: Select warming + rotation combination (requires <code class="docutils literal notranslate"><span class="pre">SelectROT</span></code> and <code class="docutils literal notranslate"><span class="pre">SelectWS</span></code>)</p></li>
-</ul>
-</section>
-<section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
-<p>To visualize all straw return scenarios for RCP 2.6 with ecofoodref rotation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SelectCrit</span> <span class="o">=</span> <span class="s1">&#39;WS+ROT&#39;</span>
-<span class="n">SelectWS</span> <span class="o">=</span> <span class="s1">&#39;2.6&#39;</span>
-<span class="n">SelectROT</span> <span class="o">=</span> <span class="s1">&#39;ecofoodref&#39;</span>
-</pre></div>
-</div>
-<p>This will load three files:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_0.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_50.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SOC_paramMC_summary_2.6_ecofoodref_100.csv</span></code></p></li>
-</ul>
-</section>
+showing SOC stock evolution over time with uncertainty bands. In total, three figures are produced: SOC_trajectories.png shows simulated SOC stock variations according to warming scenarios, straw return and crop rotations. final_deltaSOC.png shows a comparison between final SOC stock values. best_vs_baseline.png shows the difference in SOC stock variation between the most favorable scenario and the corresponding baseline.</p>
 </section>
 <section id="result-file-structure">
 <h2>Result File Structure<a class="headerlink" href="#result-file-structure" title="Link to this heading"></a></h2>
@@ -312,61 +284,7 @@ The <code class="docutils literal notranslate"><span class="pre">SelectCrit</spa
 </ul>
 <p>The uncertainty estimates come from Monte Carlo simulations with RothC parameter
 uncertainty propagation.</p>
-<p>These files are stored in <code class="docutils literal notranslate"><span class="pre">all_results</span></code>. The dict is further sliced according to a specific reporting period <code class="docutils literal notranslate"><span class="pre">rp</span></code> (set to 16 by default).</p>
 </section>
-</section>
-<section id="main-plot-components">
-<h2>Main Plot Components<a class="headerlink" href="#main-plot-components" title="Link to this heading"></a></h2>
-<p>The main plot style convention is:</p>
-<ol class="arabic simple">
-<li><p><strong>Color</strong>: Represents warming scenarios (WS)</p>
-<ul class="simple">
-<li><p>RCP 2.6: Blue (#a1afde)</p></li>
-<li><p>RCP 4.5: Orange (#fbc464)</p></li>
-<li><p>RCP 8.5: Red (#954130)</p></li>
-</ul>
-</li>
-<li><p><strong>Line style</strong>: Represents crop rotations (ROT)</p>
-<ul class="simple">
-<li><p>ecofoodref: Dotted line (‘:’)</p></li>
-<li><p>ecofoodvegan: Solid line (‘-‘)</p></li>
-<li><p>baselinesubset: Dash-dot line (‘-.’)</p></li>
-</ul>
-</li>
-<li><p><strong>Hatch pattern</strong>: Represents straw return scenarios (SR)</p></li>
-</ol>
-<p>With:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- **X-axis**: Month since initial date
-- **Y-axis**: SOC stock (t/ha)
-- **Line plots**: Mean SOC evolution (``ax.plot``)
-- **Shaded bands**: ±1 standard deviation uncertainty (``ax.fill_between``)
-</pre></div>
-</div>
-<p>The shaded uncertainty bands are transparent with hatching patterns that indicate
-the straw return scenario. The edge color of the hatch matches the line color
-(warming scenario). The line style indicates the rotation.</p>
-<section id="legend">
-<h3>Legend<a class="headerlink" href="#legend" title="Link to this heading"></a></h3>
-<p>The legend displays all visual encoding elements present in the selected data:</p>
-<ul class="simple">
-<li><p>Color patches for each warming scenario</p></li>
-<li><p>Line style examples for each rotation</p></li>
-<li><p>Hatch patterns for each straw return level</p></li>
-</ul>
-<p>Only combinations actually present in the data are shown in the legend.</p>
-</section>
-</section>
-<section id="output">
-<h2>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
-<p>The final figure is saved as a PNG file in the results folder with a filename
-constructed from all legend elements.The figure resolution is set to 1200 DPI.</p>
-</section>
-<section id="second-plot-components">
-<h2>Second Plot Components<a class="headerlink" href="#second-plot-components" title="Link to this heading"></a></h2>
-<p>A 3D scatter plot will pop-up in your default browser, showing the final SOC stock simulations according to each climate-rotation-straw combination.
-This helps identifying the most favorable and unfavorable scenario for SOC sequestration.
-Additionnaly, the two commands <code class="docutils literal notranslate"><span class="pre">print(f&quot;Most</span> <span class="pre">favorable</span> <span class="pre">scenario</span> <span class="pre">for</span> <span class="pre">SOC</span> <span class="pre">storage:\n{min_scenario}\n&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">print(f&quot;Most</span> <span class="pre">negative</span> <span class="pre">scenario</span> <span class="pre">for</span> <span class="pre">SOC</span> <span class="pre">storage:\n{max_scenario}\n&quot;)</span></code>
-show these two extreme scenarios.</p>
 </section>
 </section>
 
